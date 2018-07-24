@@ -1,8 +1,12 @@
 #-*- coding: utf-8 -*-
 import os.path
 from random import *
+import pickle
 
+from FonctionsPourClasses import *
 from Classes import *
+from Visualisation import * 
+
 
 
 
