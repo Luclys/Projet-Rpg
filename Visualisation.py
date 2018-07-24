@@ -6,8 +6,6 @@ import pickle
 from SauvegardeEtLoad import *
 from Classes import *
 from Visualisation import * 
-from FonctionImportante import *
-
 
 
 def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni le stuff
@@ -26,8 +24,8 @@ def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni
 
 
 def showItem(item):
-    print("Nom = ",perso.nom)
-    print("Cout = ",perso.cout)
-    print("Rarete = ",perso.rarete)
-    print("Description = ",perso.description)
-    print("Poids = ",perso.poids)
+    print("Nom = ",item.nom)
+    print("Cout = ",item.cout)
+    print("Rarete = ",item.rarete)
+    print("Description = ",item.description)
+    print("Poids = ",item.poids)
