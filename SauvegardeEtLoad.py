@@ -6,7 +6,6 @@ import pickle
 from SauvegardeEtLoad import *
 from Classes import *
 from Visualisation import * 
-from FonctionImportante import *
 
 
 
