@@ -6,7 +6,7 @@ Afin de pouvoir partager leur opinions, ils se lancent dans la construction d'un
 
 ***
 
-> Ahum, pardon...
+> Ahum, pardon... On y retourne !
 
 ## Getting Started
 
