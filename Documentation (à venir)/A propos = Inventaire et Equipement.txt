@@ -1,0 +1,7 @@
+Inventaire : 
+L'inventaire est une liste qui contient tous les items (armes, potions, ressources, trucs et bidules)
+que transporte le personnage durant son aventure.
+On aura différentes fonctions pour l'exploiter mais pour l'instant c'est juste une liste remplie d'objets
+
+Equippement :
+C'est aussi une liste, elle contient tous les items EQUIPES sur le personnage, d'où l'intérêt de la séparer de l'inventaire. 

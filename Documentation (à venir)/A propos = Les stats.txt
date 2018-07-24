@@ -1,0 +1,18 @@
+#Personnages : 
+	(STR) Nom -------------->  Obvious
+	(INT) Vitesse ---------->  Pour savoir qui frappe le premier, en cas de vitesse égal c'est du 50/50
+	(INT) Pv --------------->  Lorsque le joueur arrive à 0pv, IL EST MORT
+	(INT) Force ------------>  La force brute, on utilisera une formule pour les dégats, mais plus c'est élevé, plus on fait mal
+	(INT) Defense ---------->  Pareil que la force, il y'aura une formule derrière, ça sert à encaisser
+	(STR) Classe ----------->  Juste le nom de la classe 
+	(INT) Prospection ------>  Multiplie le loot par X (du coup en général on a 1 en prospection)
+	(INT)Critique --------->  En pourcentage --> Combien on a de chances de crit (5 en général)
+	(INT)Precision -------->  En pourcentage --> Combien on a de chances de toucher l'adversaire (100 en général)
+	(INT)Armure ----------->  Des pv supplémentaires, qui se régénèrent à chaque fin de combat.
+
+#Monstres :
+	Nom --------------> Pareil que plus haut
+	Vitesse ----------> Pareil que plus haut
+	Pv ---------------> Pareil que plus haut
+	Force ------------> Pareil que plus haut
+	Loot -------------> Une liste qui contient les objets dropable une fois le mob tué.
