@@ -1,0 +1,1 @@
+Potion soin£30£Rend +20 pv£{'Vie': 20};Potion force£30£Donne +10 force£{'Force': 10};Potion de soinrce£60£Donne +10 en force et +20 pv£{'Vie': 20, 'Force': 10};
