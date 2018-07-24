@@ -6,6 +6,8 @@ import pickle
 from SauvegardeEtLoad import *
 from Classes import *
 from Visualisation import * 
+from FonctionImportante import *
+
 
 
 def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni le stuff
