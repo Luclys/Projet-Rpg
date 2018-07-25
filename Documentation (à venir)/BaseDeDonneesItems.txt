@@ -1,0 +1,9 @@
+Ok ici on va commencer à énumérer les items dans un premier temps puis les équipements, utiliser le modèle suivant :
+
+  Nom_de_item = Item("Nom de l'item", son prix à l'achat, sa rareté, son poids dans l'inventaire, "Sa description")
+  
+  
+C'est à vous, on prend tout et on triera ensemble plus tard ! :)
+
+
+----------------------------------------------------------------------------------------------------------------------------------
