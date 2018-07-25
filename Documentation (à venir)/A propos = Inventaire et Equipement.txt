@@ -5,3 +5,4 @@ On aura différentes fonctions pour l'exploiter mais pour l'instant c'est juste 
 
 Equipement :
 C'est une liste, elle contient tous les items EQUIPES sur le personnage, d'où l'intérêt de la séparer de l'inventaire. 
+(Voir si on doit pas la refaire car c'est compliqué pour placer les équipements :/)
