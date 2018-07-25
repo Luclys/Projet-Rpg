@@ -10,7 +10,7 @@ from FonctionImportante import *
 class Personnage:
     inventaire = dict()
     equipement = list()
-    emplacements = {"Mains" : 2, "Tete" : 1, "Torse" : 1, "Jambes" : 1, "Pieds" : 1, "Anneaux" : 2}
+    emplacements = {"Mains" : 2, "Tete" : 1, "Torse" : 1, "Jambes" : 1, "Pieds" : 1, "Anneaux" : 2, "Dos" : 2}
     argent = 0
     xp = 0
     niveau = 1
