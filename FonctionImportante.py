@@ -26,14 +26,14 @@ def supprimer_de_inventaire(item,perso, nb_exemplaire):
 #On appelera ses fonctions une fois le(s) monstre(s) vaincu
 
 def loot(monstre): #Sous fonction : permet de choisir un item aléatoire dans la liste de drop du monstre.
-    return random.choice(monstre.loot.key())
+    return choice(monstre.loot)
 
 def lootComplet(monstre,perso): 
     listeDeLoot = list()
     for i in range(0,perso.prospection): #on loot des item x fois, avec x = prospection du personnage : 1 fois au début et plus après
         listeDeLoot.append(loot(monstre))
     for i in listeDeLoot :
-        ajout_dans_inventaire(i,perso,1):
+        ajout_dans_inventaire(i,perso,1)
 
 
 #Le nombre d'exemplaire n'est pas géré on retravaillera ça
