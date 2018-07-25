@@ -19,3 +19,6 @@
 	Pv ---------------> Pareil que plus haut
 	Force ------------> Pareil que plus haut
 	Loot -------------> Une liste qui contient les objets dropable une fois le mob tué.
+
+
+AJOUT DE LA STATISTIQUE VALEUR SUR LES CONSOMMABLES POUR POUVOIR MODIFIER LES VALEURS DES PERSOS
