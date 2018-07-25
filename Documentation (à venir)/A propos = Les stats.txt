@@ -1,18 +1,20 @@
 #Personnages : 
 	(STR) Nom -------------->  Obvious
-	(INT) Vitesse ---------->  Pour savoir qui frappe le premier, en cas de vitesse Ègal c'est du 50/50
-	(INT) Pv --------------->  Lorsque le joueur arrive ‡ 0pv, IL EST MORT
-	(INT) Force ------------>  La force brute, on utilisera une formule pour les dÈgats, mais plus c'est ÈlevÈ, plus on fait mal
-	(INT) Defense ---------->  Pareil que la force, il y'aura une formule derriËre, Áa sert ‡ encaisser
+	(INT) Vitesse ---------->  Pour savoir qui frappe le premier, en cas de vitesse √©gal c'est du 50/50
+	(INT) Pv --------------->  Lorsque le joueur arrive √† 0pv, IL EST MORT
+	(INT) Force ------------>  La force brute, on utilisera une formule pour les d√©gats, mais plus c'est √©lev√©, plus on fait mal
+	(INT) Defense ---------->  Pareil que la force, il y'aura une formule derri√®re, √ßa sert √† encaisser
 	(STR) Classe ----------->  Juste le nom de la classe 
-	(INT) Prospection ------>  Multiplie le loot par X (du coup en gÈnÈral on a 1 en prospection)
-	(INT)Critique --------->  En pourcentage --> Combien on a de chances de crit (5 en gÈnÈral)
-	(INT)Precision -------->  En pourcentage --> Combien on a de chances de toucher l'adversaire (100 en gÈnÈral)
-	(INT)Armure ----------->  Des pv supplÈmentaires, qui se rÈgÈnËrent ‡ chaque fin de combat.
+	(INT) Prospection ------>  Multiplie le loot par X (du coup en g√©n√©ral on a 1 en prospection)
+	(INT)Critique --------->  En pourcentage --> Combien on a de chances de crit (5 en g√©n√©ral)
+	(INT)Precision -------->  En pourcentage --> Combien on a de chances de toucher l'adversaire (100 en g√©n√©ral)
+	(INT)Armure ----------->  Des pv suppl√©mentaires, qui se r√©g√©n√®rent √† chaque fin de combat.
+	(INT)Mana ----------->  L'√©nergie max du personnage.
+	(INT)Argent ----------->  Pour acheter et vendre avec les marchands.
 
 #Monstres :
 	Nom --------------> Pareil que plus haut
 	Vitesse ----------> Pareil que plus haut
 	Pv ---------------> Pareil que plus haut
 	Force ------------> Pareil que plus haut
-	Loot -------------> Une liste qui contient les objets dropable une fois le mob tuÈ.
+	Loot -------------> Une liste qui contient les objets dropable une fois le mob tu√©.
