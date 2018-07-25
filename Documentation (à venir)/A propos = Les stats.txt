@@ -2,6 +2,7 @@
 	(STR) Nom -------------->  Obvious
 	(INT) Vitesse ---------->  Pour savoir qui frappe le premier, en cas de vitesse égal c'est du 50/50
 	(INT) Pv --------------->  Lorsque le joueur arrive à 0pv, IL EST MORT
+	(INT) Pvmax --------------->  Les pv max du perso qui augmente au fur et à mesure qu'il gagne des niveaux
 	(INT) Force ------------>  La force brute, on utilisera une formule pour les dégats, mais plus c'est élevé, plus on fait mal
 	(INT) Defense ---------->  Pareil que la force, il y'aura une formule derrière, ça sert à encaisser
 	(STR) Classe ----------->  Juste le nom de la classe 
