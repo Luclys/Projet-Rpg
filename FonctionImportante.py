@@ -23,23 +23,22 @@ def supprimer_de_inventaire(item,perso, nb_exemplaire):
         perso.inventaire.pop(item.nom)
 
 ######### Groupe looting/xp
-#On appelera ses fonctions une fois le(s) monstre(s) vaincu
+#On appelera cette fonction une fois le(s) monstre(s) vaincu
 
-def loot(monstre): #Sous fonction : permet de choisir un item aléatoire dans la liste de drop du monstre.
-    return choice(monstre.loot)
-
-def lootComplet(monstre,perso): 
+def lootRarete(monstre, perso,):
+    prospectionTotale = perso.prospection + randint(0, 101)
+    Lootable = list()
     listeDeLoot = list()
-    for i in range(0,perso.prospection): #on loot des item x fois, avec x = prospection du personnage : 1 fois au début et plus après
-        listeDeLoot.append(loot(monstre))
+    nombreDeLoot = randint(1, 11)
+    for i in monstre.loot :
+        if prospectionTotale >= i.rarete:
+            Lootable.append(i)
+    for i in range(nombreDeLoot) :
+        if Lootable :
+            listeDeLoot.append(choice(Lootable))
+        else :
+            break
     for i in listeDeLoot :
         ajout_dans_inventaire(i,perso,1)
-
-
-#Le nombre d'exemplaire n'est pas géré on retravaillera ça
-# !!!!!!!!!!    le i correspond à objet.nom, ça sert à faire le pont avec la "base de donnée" et c'est beaucoup plus facile à traiter
-# (une simple STR) qui est un nom, donc on sait à quoi on a affaire.
-
-
-#pour l'instant les chances de drop sont équivalentes, mais on pourra envisager de les affiner : un item legendaire aurait 5% de chance de drop et un commun
-#en aurait 80 par exemple. à envisager plus tard
+#Le nombre d'exemplaire est géré par un nombre aléatoire
+#Le drop est géré

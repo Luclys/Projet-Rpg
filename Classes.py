@@ -34,7 +34,7 @@ class Monstre:
         self.vitesse = vitesse
         self.pv = pv
         self.force = force
-        self.loot = loot #un dico qui contient les items que peut drop le mob et la rarete de chaque item 
+        self.loot = loot #une liste qui contient LES NOMS des objets lootables par le monstre
         
 class Boss(Monstre):
     def __init__(self,defense,armure,sorts,mana):
