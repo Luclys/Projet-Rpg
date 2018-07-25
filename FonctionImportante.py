@@ -26,7 +26,7 @@ def supprimer_de_inventaire(item,perso, nb_exemplaire):
 #On appelera ses fonctions une fois le(s) monstre(s) vaincu
 
 def loot(monstre): #Sous fonction : permet de choisir un item aléatoire dans la liste de drop du monstre.
-    return monstre.loot[randint(0,len(monstre.loot) - 1)]
+    return random.choice(monstre.loot.key())
 
 def lootComplet(monstre,perso): 
     listeDeLoot = list()
