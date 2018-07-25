@@ -33,7 +33,10 @@ def lootComplet(monstre,perso):
     for i in range(0,perso.prospection): #on loot des item x fois, avec x = prospection du personnage : 1 fois au début et plus après
         listeDeLoot.append(loot(monstre))
     for i in listeDeLoot :
-        ajout_dans_inventaire(i,perso,nb_exemplaire):   #Le nombre d'exemplaire n'est pas géré on retravaillera ça
+        ajout_dans_inventaire(i,perso,1):
+
+
+#Le nombre d'exemplaire n'est pas géré on retravaillera ça
 # !!!!!!!!!!    le i correspond à objet.nom, ça sert à faire le pont avec la "base de donnée" et c'est beaucoup plus facile à traiter
 # (une simple STR) qui est un nom, donc on sait à quoi on a affaire.
 
