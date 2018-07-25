@@ -1,0 +1,4 @@
+Le système de rareté est assez basique.
+On se base sur une échelle de 100 (1000 peut-être si vous voulez), si un item à 90 de rareté, notre prospection de base +
+  un facteur chance doit faire au minimum 90 pour avoir une chance de loot l'item (voir fonction lootRarete)
+Pour l'instant c'est ça à voir si on va le faire évoluer.
