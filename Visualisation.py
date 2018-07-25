@@ -10,6 +10,8 @@ from Visualisation import *
 
 def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni le stuff
     print("Nom = ",perso.nom)
+    print("Expérience = ",perso.xp)
+    print("Niveau = ",perso.niveau)
     print("Pv = ",perso.pv)
     print("Mana = ", perso.mana)
     print("Armure = ",perso.armure)
@@ -21,7 +23,7 @@ def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni
     print("Prospection = ",perso.prospection)
     print("Classe = ",perso.classe)
     print("Argent = ",perso.argent)
-
+    print("Poids Maximum = ",perso.poidsMax)
 
 def showItem(item):
     print("Nom = ",item.nom)
