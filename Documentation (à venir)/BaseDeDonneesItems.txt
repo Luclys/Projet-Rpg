@@ -12,3 +12,6 @@ C'est à vous, on prend tout et on triera ensemble plus tard ! :)
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Faudrait pas plutot les mettre dans un xml/json/ juste un fichier python ?
+
+
+Ba je pense qu'on mettra tout dans un module python donc no need xml ou json 
