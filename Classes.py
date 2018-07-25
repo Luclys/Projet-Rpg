@@ -6,6 +6,7 @@ from Classes import *
 from Visualisation import * 
 from FonctionImportante import *
 
+
 ##################################  GROUPE PERSONNAGES/MONSTRES/BOSS
 class Personnage:
     inventaire = dict()
@@ -14,8 +15,9 @@ class Personnage:
     argent = 0
     xp = 0
     niveau = 1
-    def __init__(self, nom, pv, force, defense, classe, prospection, critique, precision, armure, vitesse, mana, poidsMax): 
+    def __init__(self, nom, pv, pvmax, force, defense, classe, prospection, critique, precision, armure, vitesse, mana, poidsMax): 
         self.pv = pv
+        self.pvmax = pvmax
         self.armure  = armure
         self.force = force
         self.vitesse = vitesse
@@ -65,23 +67,43 @@ class Effet:
 class Item:
     def __init__(self, nom, cout, rarete, poids, description):
         self.nom = nom
-        self.cout = cout #un item coute la statistique cout à l'achat. Et rapporte la stat cout/2 à la revente
+        self.cout = cout 
         self.rarete = rarete
         self.poids = poids
         self.description = description
         
-class Consommable(Item): 
-    def __init__(self,effet): 
+class Consommable():
+    def __init__(self,nom, cout, rarete, poids, description, effet, valeur): 
+        self.nom = nom
+        self.cout = cout 
+        self.rarete = rarete
+        self.poids = poids
+        self.description = description
         self.effet = effet
+        self.valeur = valeur
         
-class Equipement(Item):
-    def __init__(self, durabilite, armure, effet_sur_joueur, effet_sur_mob, emplacement):
-      	self.durabilite = durabilite
-      	self.armure = armure
-      	self.effet_sur_joueur = effet_sur_joueur
-      	self.effet_sur_mob = effet_sur_mob
-      	self.emplacement = emplacement
+class Equipement():
+    def __init__(self, nom, cout, rarete, poids, description, durabilite, armure, effet_sur_joueur, effet_sur_mob, emplacement):
+        self.nom = nom
+        self.cout = cout 
+        self.rarete = rarete
+        self.poids = poids
+        self.description = description
+        self.durabilite = durabilite
+        self.armure = armure
+        self.effet_sur_joueur = effet_sur_joueur
+        self.effet_sur_mob = effet_sur_mob
+        self.emplacement = emplacement
       	
-class Arme(Equipement):
-    def __init__(self, degat):
-      	self.degat = degat    
+class Arme():
+    def __init__(self, nom, cout, rarete, poids, description, degat, durabilite, effet_sur_joueur, effet_sur_mob, emplacement):
+        self.nom = nom
+        self.cout = cout 
+        self.rarete = rarete
+        self.poids = poids
+        self.description = description
+        self.durabilite = durabilite
+        self.degat = degat
+        self.effet_sur_joueur = effet_sur_joueur
+        self.effet_sur_mob = effet_sur_mob
+        self.emplacement = emplacement
