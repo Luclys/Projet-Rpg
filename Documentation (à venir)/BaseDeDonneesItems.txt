@@ -11,6 +11,7 @@ C'est à vous, on prend tout et on triera ensemble plus tard ! :)
 
 --------------------------------------------------------------------------------------------------------------------------------
 
+
 Slime = Item( "Slime", 9, 4, 3, "Provient d'un slime, est très utile pour avoir une peau lisse mais sens l'andouille")
 Soie_araignée = Item( "Soie d'araignée", 10, 10, 2, "Utile pour tisser des fils, sers à la couture et à la frabrication de pièges")
 Casque_en_cuir = Item( "Casque en cuir", 25, 15, 11, "Simple casque en cuir fait à partir de peau de vache tanée, enfin je crois...Tiens où sont les enfants du voisins ?")
