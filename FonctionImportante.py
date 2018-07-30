@@ -39,36 +39,66 @@ def mettre_equipement(perso, item):
         else :
             perso.tete = item.nom
             perso.inventaire.pop(item.nom)
+            perso.force += item.force
+            perso.puissance += item.puissance
+            perso.vitesse += item.vitesse
+            perso.mana += item.mana
+            perso.defense += item.defense
     elif perso.tag == "dos" :
         if perso.dos and item.nom in perso.inventaire:
              print("Vous avez déjà un objet sur cet emplacement")
         else :
             perso.dos = item.nom
             perso.inventaire.pop(item.nom)
+            perso.force += item.force
+            perso.puissance += item.puissance
+            perso.vitesse += item.vitesse
+            perso.mana += item.mana
+            perso.defense += item.defense
     elif perso.tag == "bras1" :
         if perso.bras1 and item.nom in perso.inventaire:
              print("Vous avez déjà un objet sur cet emplacement")
         else :
             perso.bras1 = item.nom
             perso.inventaire.pop(item.nom)
+            perso.force += item.force
+            perso.puissance += item.puissance
+            perso.vitesse += item.vitesse
+            perso.mana += item.mana
+            perso.defense += item.defense
     elif perso.tag == "bras2" :
         if perso.bras2 and item.nom in perso.inventaire:
              print("Vous avez déjà un objet sur cet emplacement")
         else :
             perso.bras2 = item.nom
             perso.inventaire.pop(item.nom)
+            perso.force += item.force
+            perso.puissance += item.puissance
+            perso.vitesse += item.vitesse
+            perso.mana += item.mana
+            perso.defense += item.defense
     elif perso.tag == "pieds" :
         if perso.pieds and item.nom in perso.inventaire:
              print("Vous avez déjà un objet sur cet emplacement")
         else :
             perso.pieds = item.nom
             perso.inventaire.pop(item.nom)
+            perso.force += item.force
+            perso.puissance += item.puissance
+            perso.vitesse += item.vitesse
+            perso.mana += item.mana
+            perso.defense += item.defense
     elif perso.tag == "main" :
         if perso.main and item.nom in perso.inventaire:
              print("Vous avez déjà une arme dans vos mains !")
         else :
             perso.main = item.nom
             perso.inventaire.pop(item.nom)
+            perso.force += item.force
+            perso.puissance += item.puissance
+            perso.vitesse += item.vitesse
+            perso.mana += item.mana
+            perso.defense += item.defense
 
 def enlever_equipement(perso, item):
     perso.tag = item.emplacement
@@ -76,40 +106,69 @@ def enlever_equipement(perso, item):
         if perso.tete :
             perso.tete = ""
             ajout_dans_inventaire(item,perso,1)
+            perso.force -= item.force
+            perso.puissance -= item.puissance
+            perso.vitesse -= item.vitesse
+            perso.mana -= item.mana
+            perso.defense -= item.defense
         else :
             print("Vous êtes équipé d'aucune pièce d'équipement")
     elif perso.tag == "dos" :
         if perso.dos :
             perso.dos = ""
             ajout_dans_inventaire(item,perso,1)
+            perso.force -= item.force
+            perso.puissance -= item.puissance
+            perso.vitesse -= item.vitesse
+            perso.mana -= item.mana
+            perso.defense -= item.defense
         else :
             print("Vous êtes équipé d'aucune pièce d'équipement")
     elif perso.tag == "bras1" :
         if perso.bras1 :
             perso.bras1 = ""
             ajout_dans_inventaire(item,perso,1)
+            perso.force -= item.force
+            perso.puissance -= item.puissance
+            perso.vitesse -= item.vitesse
+            perso.mana -= item.mana
+            perso.defense -= item.defense
         else :
             print("Vous êtes équipé d'aucune pièce d'équipement")
     elif perso.tag == "bras2" :
         if perso.bras2 :
             perso.bras2 = ""
             ajout_dans_inventaire(item,perso,1)
+            perso.force -= item.force
+            perso.puissance -= item.puissance
+            perso.vitesse -= item.vitesse
+            perso.mana -= item.mana
+            perso.defense -= item.defense
         else :
             print("Vous êtes équipé d'aucune pièce d'équipement")
     elif perso.tag == "pieds" :
         if perso.pieds :
             perso.pieds = ""
             ajout_dans_inventaire(item,perso,1)
+            perso.force -= item.force
+            perso.puissance -= item.puissance
+            perso.vitesse -= item.vitesse
+            perso.mana -= item.mana
+            perso.defense -= item.defense
         else :
             print("Vous êtes équipé d'aucune pièce d'équipement")
     elif perso.tag == "main" :
         if perso.main :
             perso.main = ""
             ajout_dans_inventaire(item,perso,1)
+            perso.force -= item.force
+            perso.puissance -= item.puissance
+            perso.vitesse -= item.vitesse
+            perso.mana -= item.mana
+            perso.defense -= item.defense
         else :
             print("Vous êtes équipé d'aucune pièce d'équipement")
-
-
+    
 ######### Groupe looting/xp
 #On appelera cette fonction une fois le(s) monstre(s) vaincu
 def rareteToStr(item):
@@ -153,7 +212,7 @@ def donne_exp(perso, nb_exp):
 def ameliore_stats(perso):
     if perso.classe == "Mage" :
         perso.pvmax += randint(1, 3)
-        perso.armure += randint(0, 1)
+        perso.puissance += randint(5, 10)
         perso.vitesse += randint(0, 1)
         perso.critique += randint(0, 1)
         perso.precision += randint(0, 1)
@@ -163,7 +222,6 @@ def ameliore_stats(perso):
         perso.poidsMax += randint(20, 50)
     elif perso.classe == "Guerrier" :
         perso.pvmax += randint(5, 10)
-        perso.armure += randint(3, 6)
         perso.force += randint(5, 10)
         perso.vitesse += randint(1, 3)
         perso.critique += randint(0, 1)
@@ -174,7 +232,7 @@ def ameliore_stats(perso):
         perso.poidsMax += randint(20, 50)
     elif perso.classe == "Paladin" :
         perso.pvmax += randint(5, 15)
-        perso.armure += randint(3, 6)
+        perso.puissance += randint(1, 5)
         perso.force += randint(1, 5)
         perso.vitesse += randint(1, 2)
         perso.critique += randint(0, 1)
@@ -191,5 +249,23 @@ def donne_sort(perso, classe, sort):
     else :
         print("Vous ne pouvez pas apprendre ce sort !")
 
+####### Effet
+def applique_effet_equip(perso, effet, item):
+    if item.effet_sur_joueur:
+        perso.effet = item.effet_sur_joueur
+        perso.tour = effet.tour
 
-    
+def applique_effet_de_mob(perso, effet, monstre):
+    if monstre.effet:
+        perso.effet = monstre.effet
+        perso.tour = effet.tour
+
+def applique_dommage_effet(perso, effet): #Le systeme de tour pour faire perdurer l'effet doit etre link avec le nombre de tour du joueur (chauqe fois que le joueur joue l'effets'applique et reduit d'un tour 
+    if perso.effet :
+        while perso.tour > 0:
+            perso.pv -= effet.valeur
+            perso.tour -= 1
+        perso.effet = ""
+    elif perso.effet == "Purge":
+        perso.effet = ""
+#VRAIMENT A REVOIR L'APPLIQUE DOMMAGE QUAND ON AURA LE SYSTEME DE TOUR PAR TOUR OPERATIONNEL

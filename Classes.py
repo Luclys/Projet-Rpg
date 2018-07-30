@@ -8,6 +8,9 @@ from FonctionImportante import *
 
 ##################################  GROUPE PERSONNAGES/MONSTRES/BOSS
 class Personnage:
+    #Effet appliqué directement
+    effet = ""
+    tour = 0
     #Emplacements
     tete = ""
     dos = ""
@@ -22,11 +25,11 @@ class Personnage:
     exp = 0
     expmax = randint(150, 200)
     niveau = 1
-    def __init__(self, nom, pv, pvmax, force, defense, classe, prospection, critique, precision, armure, vitesse, mana, poidsMax, sort_utilisable, inventaire): 
+    def __init__(self, nom, pv, pvmax, force, puissance, defense, classe, prospection, critique, precision, vitesse, mana, poidsMax, sort_utilisable, inventaire): 
         self.pv = pv
         self.pvmax = pvmax
-        self.armure  = armure
         self.force = force
+        self.puissance = puissance
         self.vitesse = vitesse
         self.critique = critique
         self.precision = precision
@@ -45,13 +48,13 @@ class Classe:
         self.tout_sort = tout_sort
      
 class Monstre:
-    def __init__(self, nom, vitesse, pv, force, loot):
+    def __init__(self, nom, vitesse, pv, force, loot, effet):
         self.nom = nom
         self.vitesse = vitesse
         self.pv = pv
         self.force = force
         self.loot = loot #une liste qui contient LES NOMS des objets lootables par le monstre
-        
+        self.effet = effet
 class Boss(Monstre):
     def __init__(self,defense,armure,sorts,mana):
         self.defense = defense #les boss, contrairement aux sous monstres, ont une stat de défense, et peuvent donc être plus ou moins tanky
@@ -72,9 +75,10 @@ class Sort:
         self.niveau_requis = niveau_requis
         
 class Effet:
-    def __init__(self, nom, valeur, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
+    def __init__(self, nom, valeur, tour, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
         self.nom = nom
         self.valeur = valeur
+        self.tour = tour
         self.description = description
 
 
@@ -98,27 +102,33 @@ class Consommable():
         self.valeur = valeur
         
 class Equipement():
-    def __init__(self, nom, cout, rarete, poids, description, durabilite, armure, effet_sur_joueur, effet_sur_mob, emplacement):
+    def __init__(self, nom, cout, rarete, poids, force, puissance, vitesse, mana, defense, description, effet_sur_joueur, effet_sur_mob, emplacement):
         self.nom = nom
         self.cout = cout 
         self.rarete = rarete
         self.poids = poids
+        self.force = force
+        self.puissance = puissance
+        self.vitesse = vitesse
+        self.mana = mana
+        self.defense = defense
         self.description = description
-        self.durabilite = durabilite
-        self.armure = armure
         self.effet_sur_joueur = effet_sur_joueur
         self.effet_sur_mob = effet_sur_mob
         self.emplacement = emplacement
       	
 class Arme():
-    def __init__(self, nom, cout, rarete, poids, description, degat, durabilite, effet_sur_joueur, effet_sur_mob, emplacement):
+    def __init__(self, nom, cout, rarete, poids, description, force, puissance, vitesse, mana, defense, effet_sur_joueur, effet_sur_mob, emplacement):
         self.nom = nom
         self.cout = cout 
         self.rarete = rarete
         self.poids = poids
         self.description = description
-        self.durabilite = durabilite
-        self.degat = degat
+        self.puissance = puissance
+        self.vitesse = vitesse
+        self.force = force
+        self.mana = mana
+        self.defense = defense
         self.effet_sur_joueur = effet_sur_joueur
         self.effet_sur_mob = effet_sur_mob
         self.emplacement = emplacement
