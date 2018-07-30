@@ -8,9 +8,6 @@ from FonctionImportante import *
 
 ##################################  GROUPE PERSONNAGES/MONSTRES/BOSS
 class Personnage:
-    inventaire = dict()
-    equipement = list()
-
     #Emplacements
     tete = ""
     dos = ""
@@ -23,9 +20,9 @@ class Personnage:
     ############
     argent = 0
     exp = 0
+    expmax = randint(150, 200)
     niveau = 1
-    sort_utilisable = list()
-    def __init__(self, nom, pv, pvmax, force, defense, classe, prospection, critique, precision, armure, vitesse, mana, poidsMax): 
+    def __init__(self, nom, pv, pvmax, force, defense, classe, prospection, critique, precision, armure, vitesse, mana, poidsMax, sort_utilisable, inventaire): 
         self.pv = pv
         self.pvmax = pvmax
         self.armure  = armure
@@ -39,6 +36,8 @@ class Personnage:
         self.classe = classe
         self.nom = nom
         self.poidsMax = poidsMax
+        self.sort_utilisable = sort_utilisable
+        self.inventaire = inventaire
 
 class Classe:
     def __init__(self, nom, tout_sort):
@@ -63,14 +62,14 @@ class Boss(Monstre):
 
 ############################    GROUPE EFFET/SORT
 class Sort:
-    def __init__(self, nom, coutMana, description, degat, soin, effet):
+    def __init__(self, nom, coutMana, description, degat, soin, effet, niveau_requis):
         self.nom = nom
         self.coutMana = coutMana
         self.description = description
         self.degat = degat
         self.soin = soin
         self.effet = effet
-
+        self.niveau_requis = niveau_requis
         
 class Effet:
     def __init__(self, nom, valeur, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige

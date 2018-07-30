@@ -144,25 +144,52 @@ def lootRarete(monstre, perso,):
 
 def donne_exp(perso, nb_exp):
     perso.exp += nb_exp
+    if perso.exp >= perso.expmax:
+        perso.niveau += 1
+        perso.exp = 0
+        perso.expmax *= uniform(1.20, 1.5)
+        ameliore_stats(perso)
 
 def ameliore_stats(perso):
-    perso.pvmax += randint(1, 10)
-    perso.armure += randint(1, 3)
-    perso.force += randint(1, 3)
-    perso.vitesse += randint(1, 3)
-    perso.critique += randint(0, 1)
-    perso.precision += randint(0, 1)
-    perso.defense += randint(1, 2)
-    perso.mana += randint(200, 500)
-    perso.prospection += randint(0, 1)
-    perso.poidsMax += randint(20, 50)
-    
+    if perso.classe == "Mage" :
+        perso.pvmax += randint(1, 3)
+        perso.armure += randint(0, 1)
+        perso.vitesse += randint(0, 1)
+        perso.critique += randint(0, 1)
+        perso.precision += randint(0, 1)
+        perso.defense += randint(1, 2)
+        perso.mana += randint(500, 800)
+        perso.prospection += randint(0, 1)
+        perso.poidsMax += randint(20, 50)
+    elif perso.classe == "Guerrier" :
+        perso.pvmax += randint(5, 10)
+        perso.armure += randint(3, 6)
+        perso.force += randint(5, 10)
+        perso.vitesse += randint(1, 3)
+        perso.critique += randint(0, 1)
+        perso.precision += randint(0, 1)
+        perso.defense += randint(1, 5)
+        perso.mana += randint(0, 150)
+        perso.prospection += randint(0, 1)
+        perso.poidsMax += randint(20, 50)
+    elif perso.classe == "Paladin" :
+        perso.pvmax += randint(5, 15)
+        perso.armure += randint(3, 6)
+        perso.force += randint(1, 5)
+        perso.vitesse += randint(1, 2)
+        perso.critique += randint(0, 1)
+        perso.precision += randint(0, 1)
+        perso.defense += randint(1, 5)
+        perso.mana += randint(200, 500)
+        perso.prospection += randint(0, 1)
+        perso.poidsMax += randint(20, 50)
+   
+
 def donne_sort(perso, classe, sort):
-    if sort.nom in classe.tout_sort:
+    if sort.nom in classe.tout_sort and perso.niveau >= sort.niveau_requis:
         perso.sort_utilisable.append(sort.nom)
     else :
         print("Vous ne pouvez pas apprendre ce sort !")
-
 
 
     

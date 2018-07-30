@@ -14,6 +14,7 @@ def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni
     print("Expérience = ",perso.exp)
     print("Niveau = ",perso.niveau)
     print("Pv = ",perso.pv)
+    print("Sorts = ", perso.sort_utilisable)
     print("Pv max = ",perso.pvmax)
     print("Mana = ", perso.mana)
     print("Armure = ",perso.armure)
@@ -26,7 +27,7 @@ def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni
     print("Classe = ",perso.classe)
     print("Argent = ",perso.argent)
     print("Poids Maximum = ",perso.poidsMax)
-
+    print("Il vous faut ", perso.expmax - perso.exp, " pour atteindre le prochain niveau !") 
 def showItem(item):
     print("Nom = ",item.nom)
     print("Cout = ",item.cout)
