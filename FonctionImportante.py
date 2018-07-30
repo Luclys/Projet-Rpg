@@ -2,13 +2,12 @@
 import os.path
 from random import *
 import pickle
-
 from SauvegardeEtLoad import *
 from Classes import *
 from Visualisation import * 
 
 
-######## Groupe gestion d'inventaire 
+######## Groupe gestion d'inventaire et equipements
 def ajout_dans_inventaire(item,perso,nb_exemplaire):
     if item.nom in perso.inventaire :
         perso.inventaire[item.nom] += nb_exemplaire
@@ -32,22 +31,83 @@ def utiliser_consommables(perso, consommable):
         else :
             perso.pv += consommable.valeur
 
+def mettre_equipement(perso, item):
+    perso.tag = item.emplacement
+    if perso.tag == "tete" :
+        if perso.tete and item.nom in perso.inventaire:
+             print("Vous avez déjà un objet sur cet emplacement")
+        else :
+            perso.tete = item.nom
+            perso.inventaire.pop(item.nom)
+    elif perso.tag == "dos" :
+        if perso.dos and item.nom in perso.inventaire:
+             print("Vous avez déjà un objet sur cet emplacement")
+        else :
+            perso.dos = item.nom
+            perso.inventaire.pop(item.nom)
+    elif perso.tag == "bras1" :
+        if perso.bras1 and item.nom in perso.inventaire:
+             print("Vous avez déjà un objet sur cet emplacement")
+        else :
+            perso.bras1 = item.nom
+            perso.inventaire.pop(item.nom)
+    elif perso.tag == "bras2" :
+        if perso.bras2 and item.nom in perso.inventaire:
+             print("Vous avez déjà un objet sur cet emplacement")
+        else :
+            perso.bras2 = item.nom
+            perso.inventaire.pop(item.nom)
+    elif perso.tag == "pieds" :
+        if perso.pieds and item.nom in perso.inventaire:
+             print("Vous avez déjà un objet sur cet emplacement")
+        else :
+            perso.pieds = item.nom
+            perso.inventaire.pop(item.nom)
+    elif perso.tag == "main" :
+        if perso.main and item.nom in perso.inventaire:
+             print("Vous avez déjà une arme dans vos mains !")
+        else :
+            perso.main = item.nom
+            perso.inventaire.pop(item.nom)
 
-def equiper_arme(perso, item):
-    if perso.emplacements["Mains"] <= 0 and item.nom in perso.inventaire:
-        print("impossible de s'équiper de l'arme votre main sont déjà prises")
-    else :
-        perso.equipement.append(item.nom)
-        perso.inventaire.pop(item.nom)
-        perso.emplacements["Mains"] -= 1
-
-def desequiper_arme(perso, item):
-    if perso.equipement :
-        perso.equipement.remove(item.nom)
-        ajout_dans_inventaire(item,perso,1)
-        perso.emplacements["Mains"] += 1
-    else :
-        print("Vous êtes équipé d'aucune arme")
+def enlever_equipement(perso, item):
+    perso.tag = item.emplacement
+    if perso.tag == "tete" :
+        if perso.tete :
+            perso.tete = ""
+            ajout_dans_inventaire(item,perso,1)
+        else :
+            print("Vous êtes équipé d'aucune pièce d'équipement")
+    elif perso.tag == "dos" :
+        if perso.dos :
+            perso.dos = ""
+            ajout_dans_inventaire(item,perso,1)
+        else :
+            print("Vous êtes équipé d'aucune pièce d'équipement")
+    elif perso.tag == "bras1" :
+        if perso.bras1 :
+            perso.bras1 = ""
+            ajout_dans_inventaire(item,perso,1)
+        else :
+            print("Vous êtes équipé d'aucune pièce d'équipement")
+    elif perso.tag == "bras2" :
+        if perso.bras2 :
+            perso.bras2 = ""
+            ajout_dans_inventaire(item,perso,1)
+        else :
+            print("Vous êtes équipé d'aucune pièce d'équipement")
+    elif perso.tag == "pieds" :
+        if perso.pieds :
+            perso.pieds = ""
+            ajout_dans_inventaire(item,perso,1)
+        else :
+            print("Vous êtes équipé d'aucune pièce d'équipement")
+    elif perso.tag == "main" :
+        if perso.main :
+            perso.main = ""
+            ajout_dans_inventaire(item,perso,1)
+        else :
+            print("Vous êtes équipé d'aucune pièce d'équipement")
 
 
 ######### Groupe looting/xp
@@ -79,3 +139,30 @@ def lootRarete(monstre, perso,):
         ajout_dans_inventaire(i,perso,1)
 #Le nombre d'exemplaire est géré par un nombre aléatoire
 #Le drop est géré
+
+######### Groupe experience et monter de lvl
+
+def donne_exp(perso, nb_exp):
+    perso.exp += nb_exp
+
+def ameliore_stats(perso):
+    perso.pvmax += randint(1, 10)
+    perso.armure += randint(1, 3)
+    perso.force += randint(1, 3)
+    perso.vitesse += randint(1, 3)
+    perso.critique += randint(0, 1)
+    perso.precision += randint(0, 1)
+    perso.defense += randint(1, 2)
+    perso.mana += randint(200, 500)
+    perso.prospection += randint(0, 1)
+    perso.poidsMax += randint(20, 50)
+    
+def donne_sort(perso, classe, sort):
+    if sort.nom in classe.tout_sort:
+        perso.sort_utilisable.append(sort.nom)
+    else :
+        print("Vous ne pouvez pas apprendre ce sort !")
+
+
+
+    

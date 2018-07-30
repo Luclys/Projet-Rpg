@@ -11,7 +11,7 @@ from FonctionImportante import *
 
 def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni le stuff
     print("Nom = ",perso.nom)
-    print("Expérience = ",perso.xp)
+    print("Expérience = ",perso.exp)
     print("Niveau = ",perso.niveau)
     print("Pv = ",perso.pv)
     print("Pv max = ",perso.pvmax)

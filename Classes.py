@@ -1,6 +1,5 @@
 #-*- coding: utf-8 -*-
 import pickle
-
 from SauvegardeEtLoad import *
 from Classes import *
 from Visualisation import * 
@@ -11,10 +10,21 @@ from FonctionImportante import *
 class Personnage:
     inventaire = dict()
     equipement = list()
-    emplacements = {"Mains" : 2, "Tete" : 1, "Torse" : 1, "Jambes" : 1, "Pieds" : 1, "Anneaux" : 2, "Dos" : 2}
+
+    #Emplacements
+    tete = ""
+    dos = ""
+    bras1 = ""
+    bras2 = ""
+    pieds = ""
+    main = ""
+    #Emplacement de transition pour savoir ou doit aller l'item
+    tag = ""
+    ############
     argent = 0
-    xp = 0
+    exp = 0
     niveau = 1
+    sort_utilisable = list()
     def __init__(self, nom, pv, pvmax, force, defense, classe, prospection, critique, precision, armure, vitesse, mana, poidsMax): 
         self.pv = pv
         self.pvmax = pvmax
@@ -29,7 +39,12 @@ class Personnage:
         self.classe = classe
         self.nom = nom
         self.poidsMax = poidsMax
-        
+
+class Classe:
+    def __init__(self, nom, tout_sort):
+        self.nom = nom
+        self.tout_sort = tout_sort
+     
 class Monstre:
     def __init__(self, nom, vitesse, pv, force, loot):
         self.nom = nom
@@ -47,19 +62,20 @@ class Boss(Monstre):
     #Note : les monstres élites sont des miniboss, ils auront donc des stats réduites : peu/pas de sorts ou de faibles stats à côté
 
 ############################    GROUPE EFFET/SORT
-class Sorts:
-    def __init__(self, nom, coutMana, description, valeur):
+class Sort:
+    def __init__(self, nom, coutMana, description, degat, soin, effet):
         self.nom = nom
-        self.valeur = valeur
         self.coutMana = coutMana
-        self.description = description        
+        self.description = description
+        self.degat = degat
+        self.soin = soin
+        self.effet = effet
 
         
 class Effet:
-    def __init__(self, nom, valeur, duree, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
+    def __init__(self, nom, valeur, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
         self.nom = nom
         self.valeur = valeur
-        self.duree = duree
         self.description = description
 
 
