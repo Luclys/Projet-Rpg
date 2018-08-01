@@ -24,3 +24,5 @@ Paladin = Classe("Paladin",[])
 Arthur = Personnage("Arthur",8,10,0,0,0,"Mage",0,0,0,0,0,0,[Boule_de_feu.nom, Glace.nom], dict())
 Jean = Personnage("Jean",3,10,0,0,0,"Paladin",0,0,0,0,0,0,[], dict())
 Michel = Personnage("Michel",3,10,0,0,0,"Guerrier",0,0,0,0,0,0,[], dict())
+Ish = PNJ("Ish", [Epee_maudite.nom, Casque_WazukiIV.nom])
+

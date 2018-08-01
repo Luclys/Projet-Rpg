@@ -249,7 +249,7 @@ def donne_sort(perso, classe, sort):
     else :
         print("Vous ne pouvez pas apprendre ce sort !")
 
-####### Effet
+####### Groupe Effet
 def applique_effet_equip(perso, effet, item):
     if item.effet_sur_joueur:
         perso.effet = item.effet_sur_joueur
@@ -269,3 +269,32 @@ def applique_dommage_effet(perso, effet): #Le systeme de tour pour faire perdure
     elif perso.effet == "Purge":
         perso.effet = ""
 #VRAIMENT A REVOIR L'APPLIQUE DOMMAGE QUAND ON AURA LE SYSTEME DE TOUR PAR TOUR OPERATIONNEL
+
+
+
+######## Groupe pnj
+
+def acheter_objet(perso, item):
+    if perso.argent >= item.cout :
+        ajout_dans_inventaire(item, perso, 1)
+        perso.argent -= item.cout
+    else :
+        print("T'es pauvre")
+
+def vendre_objet(perso, item):
+    if item.nom in perso.inventaire:
+        supprimer_de_inventaire(item,perso, 1)
+        perso.argent += item.cout * 0.5
+
+
+
+
+
+
+
+
+
+
+
+
+        

@@ -5,7 +5,7 @@ import pickle
 
 from SauvegardeEtLoad import *
 from Classes import *
-from Visualisation import * 
+
 from FonctionImportante import *
 
 
@@ -28,6 +28,8 @@ def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni
     print("Argent = ",perso.argent)
     print("Poids Maximum = ",perso.poidsMax)
     print("Il vous faut ", perso.expmax - perso.exp, " pour atteindre le prochain niveau !") 
+
+
 def showItem(item):
     print("Nom = ",item.nom)
     print("Cout = ",item.cout)
@@ -39,3 +41,7 @@ def showItem(item):
     print("L'item donne ", item.defense, " d'armure !")
     print("Description = ",item.description)
     print("Poids = ",item.poids)
+
+def showMarket(PNJ):
+    print(PNJ.objet)
+

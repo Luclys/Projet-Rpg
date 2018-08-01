@@ -46,6 +46,11 @@ class Classe:
     def __init__(self, nom, tout_sort):
         self.nom = nom
         self.tout_sort = tout_sort
+
+class PNJ:
+    def __init__(self, nom, objet):
+        self.nom = nom
+        self.objet = objet
      
 class Monstre:
     def __init__(self, nom, vitesse, pv, force, loot, effet):
