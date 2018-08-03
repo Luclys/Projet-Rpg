@@ -31,7 +31,7 @@ def utiliser_consommables(perso, consommable):
         else :
             perso.pv += consommable.valeur
     
-def mettre_equipement(perso, item):
+def mettre_equipement(perso, item): #Ultra mega long, il faut trouver la possibilité de faire perso.nom_de_lemplacement car sinon ya trop de if 
     perso.tag = item.emplacement
     if perso.tag == "tete" :
         if perso.tete and item.nom in perso.inventaire:
@@ -201,8 +201,8 @@ def lootRarete(monstre, perso):
 
 ######### Groupe experience et monter de lvl
 
-def donne_exp(perso, monstre):
-    nb_exp = 200 
+def donne_exp(perso, monstre): #donne de l'exp au perso voir comment on la calcule
+    nb_exp = 12 + monstre.niveau
     perso.exp += nb_exp
     if perso.exp >= perso.expmax:
         perso.niveau += 1
@@ -210,7 +210,11 @@ def donne_exp(perso, monstre):
         perso.expmax *= uniform(1.20, 1.5)
         ameliore_stats(perso)
 
-def ameliore_stats(perso):
+def donne_exp(perso, monstre): #donne de l'argent au perso voir comment on la calcule
+    nb_argent = 10 + monstre.niveau
+    perso.argent += nb_argent
+    
+def ameliore_stats(perso): #Meme probleme que mettre_equipement trouver un moyen de faire perso.nom_de_la_classe pour eviter les if
     if perso.classe == "Mage" :
         perso.pvmax += randint(1, 3)
         perso.puissance += randint(5, 10)
@@ -244,24 +248,24 @@ def ameliore_stats(perso):
         perso.poidsMax += randint(20, 50)
    
 
-def donne_sort(perso, classe, sort):
+def donne_sort(perso, classe, sort):#Permet d'apprendre un sort (doit etre link au systeme de lvl car la le sort ne s'apprend pas tout seul à la montée de niveau requis
     if sort.nom in classe.tout_sort and perso.niveau >= sort.niveau_requis:
         perso.sort_utilisable.append(sort.nom)
     else :
         print("Vous ne pouvez pas apprendre ce sort !")
 
 ####### Groupe Effet
-def applique_effet_equip(perso, effet, item):
+def applique_effet_equip(perso, effet, item): #Applique l'effet d'un equipement 
     if item.effet_sur_joueur:
         perso.effet = item.effet_sur_joueur
         perso.tour_effet = effet.tour
 
-def applique_effet_de_mob(perso, effet, monstre):
+def applique_effet_de_mob(perso, effet, monstre): #Applique l'effet quand un mob tape sur le perso
     if monstre.effet and perso.effet == "":
         perso.effet = monstre.effet.nom
         perso.tour_effet = effet.tour
 
-def applique_dommage_effet(perso, effet): #Le systeme de tour pour faire perdurer l'effet doit etre link avec le nombre de tour du joueur (chauqe fois que le joueur joue l'effets'applique et reduit d'un tour 
+def applique_dommage_effet(perso, effet): #Appliqueur de dommage 
     if perso.tour_effet == 0:
         perso.effet = ""
     elif perso.effet == "Purge":
@@ -275,14 +279,14 @@ def applique_dommage_effet(perso, effet): #Le systeme de tour pour faire perdure
 
 ######## Groupe pnj
 
-def acheter_objet(perso, item):
+def acheter_objet(perso, item): #Pour acheter des objets aux marchands
     if perso.argent >= item.cout :
         ajout_dans_inventaire(item, perso, 1)
         perso.argent -= item.cout
     else :
         print("T'es pauvre")
 
-def vendre_objet(perso, item):
+def vendre_objet(perso, item): #Pour vendre des objets aux marchands
     if item.nom in perso.inventaire:
         supprimer_de_inventaire(item,perso, 1)
         perso.argent += item.cout * 0.5

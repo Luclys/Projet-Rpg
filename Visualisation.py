@@ -25,13 +25,13 @@ def showPerso(perso): #Montre juste les stats, pas le contenu de l'inventaire ni
     print("Classe = ",perso.classe)
     print("Argent = ",perso.argent)
     print("Poids Maximum = ",perso.poidsMax)
-    print("Il vous faut ", perso.expmax - perso.exp, " pour atteindre le prochain niveau !") 
+    print("Il vous faut ", perso.expmax - perso.exp, " pour atteindre le prochain niveau !") #Exp jusqu'au prochain niveau
 
 
 def showItem(item):
     print("Nom = ",item.nom)
     print("Cout = ",item.cout)
-    rareteToStr(item)
+    rareteToStr(item) #Rareté de l'item
     print("L'item donne ", item.force, " de force")
     print("L'item donne ", item.puissance, " de puissance")
     print("L'item donne ", item.vitesse, " d'accéleration")
@@ -41,12 +41,12 @@ def showItem(item):
     print("Poids = ",item.poids)
 
 def showMarket(PNJ):
-    print(PNJ.objet)
+    print(PNJ.objet) #Les items en vendent par le pnj XXX 
 
 
 
 ######## Groupe de système de tour  
-def entre_dans_combat(perso, zone): #La fonction renvoi vers la visualiation car je vois pas comment coder un combat sans un visuel console minimum xD
+def entre_dans_combat(perso, zone): #Doit etre appeller pour faire un combat
     print("Phase 1 tu rentres dans un combat")
     choix = randint(0,(len(zone.monstre) - 1))
     choix_monstre = zone.monstre[choix]
@@ -73,6 +73,7 @@ def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_co
         print("Bravo, votre ennemi est mort !")
         lootRarete(monstre, perso)
         donne_exp(perso, monstre)
+        donne_argent(perso, monstre)
         monstre.pv = monstre.pvmax
         perso.effet = ""
         perso.tour_effet = 0
