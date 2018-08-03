@@ -30,7 +30,7 @@ def utiliser_consommables(perso, consommable):
             perso.pv = perso.pvmax
         else :
             perso.pv += consommable.valeur
-
+    
 def mettre_equipement(perso, item):
     perso.tag = item.emplacement
     if perso.tag == "tete" :
@@ -181,7 +181,7 @@ def rareteToStr(item):
     else :
         print("Rarete = Commun")
     
-def lootRarete(monstre, perso,):
+def lootRarete(monstre, perso):
     prospectionTotale = perso.prospection + randint(0, 101)
     Lootable = list()
     listeDeLoot = list()
@@ -201,11 +201,12 @@ def lootRarete(monstre, perso,):
 
 ######### Groupe experience et monter de lvl
 
-def donne_exp(perso, nb_exp):
+def donne_exp(perso, monstre):
+    nb_exp = 200 
     perso.exp += nb_exp
     if perso.exp >= perso.expmax:
         perso.niveau += 1
-        perso.exp = 0
+        perso.exp = abs(perso.expmax - perso.exp)
         perso.expmax *= uniform(1.20, 1.5)
         ameliore_stats(perso)
 
@@ -253,21 +254,21 @@ def donne_sort(perso, classe, sort):
 def applique_effet_equip(perso, effet, item):
     if item.effet_sur_joueur:
         perso.effet = item.effet_sur_joueur
-        perso.tour = effet.tour
+        perso.tour_effet = effet.tour
 
 def applique_effet_de_mob(perso, effet, monstre):
-    if monstre.effet:
-        perso.effet = monstre.effet
-        perso.tour = effet.tour
+    if monstre.effet and perso.effet == "":
+        perso.effet = monstre.effet.nom
+        perso.tour_effet = effet.tour
 
 def applique_dommage_effet(perso, effet): #Le systeme de tour pour faire perdurer l'effet doit etre link avec le nombre de tour du joueur (chauqe fois que le joueur joue l'effets'applique et reduit d'un tour 
-    if perso.effet :
-        while perso.tour > 0:
-            perso.pv -= effet.valeur
-            perso.tour -= 1
+    if perso.tour_effet == 0:
         perso.effet = ""
     elif perso.effet == "Purge":
         perso.effet = ""
+    else :
+        perso.pv -= effet.valeur
+        perso.tour_effet -= 1
 #VRAIMENT A REVOIR L'APPLIQUE DOMMAGE QUAND ON AURA LE SYSTEME DE TOUR PAR TOUR OPERATIONNEL
 
 
@@ -285,16 +286,6 @@ def vendre_objet(perso, item):
     if item.nom in perso.inventaire:
         supprimer_de_inventaire(item,perso, 1)
         perso.argent += item.cout * 0.5
-
-
-
-
-
-
-
-
-
-
 
 
         

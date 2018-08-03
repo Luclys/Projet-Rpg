@@ -10,6 +10,8 @@ from FonctionImportante import *
 class Personnage:
     #Effet appliqué directement
     effet = ""
+    tour_effet = 0
+    #tour pour combat
     tour = 0
     #Emplacements
     tete = ""
@@ -53,13 +55,15 @@ class PNJ:
         self.objet = objet
      
 class Monstre:
-    def __init__(self, nom, vitesse, pv, force, loot, effet):
+    def __init__(self, nom, vitesse, pv, pvmax, force, loot, effet, niveau):
         self.nom = nom
         self.vitesse = vitesse
         self.pv = pv
+        self.pvmax= pvmax
         self.force = force
         self.loot = loot #une liste qui contient LES NOMS des objets lootables par le monstre
         self.effet = effet
+        self.niveau = niveau
 class Boss(Monstre):
     def __init__(self,defense,armure,sorts,mana):
         self.defense = defense #les boss, contrairement aux sous monstres, ont une stat de défense, et peuvent donc être plus ou moins tanky
@@ -137,3 +141,11 @@ class Arme():
         self.effet_sur_joueur = effet_sur_joueur
         self.effet_sur_mob = effet_sur_mob
         self.emplacement = emplacement
+
+
+class Zone():
+    def __init__(self, nom, monstre, description):
+        self.nom = nom
+        self.monstre = monstre
+        self.description = description
+        
