@@ -5,6 +5,8 @@ from SauvegardeEtLoad import *
 from Classes import *
 from Visualisation import * 
 from FonctionImportante import *
+from tkinter import *
+from functools import *
 
 #Ici on met les persos + les items pour test les fonctions et les classes
 Poudre_magique = Item("Poudre de perlinpainpain",50,20, 10, "C'est une poudre magiiiiique !")
@@ -27,4 +29,18 @@ Arthur = Personnage("Arthur",8,10,0,0,0,"Mage",0,0,0,0,0,0,[Boule_de_feu.nom, Gl
 Jean = Personnage("Jean",3,10,0,0,0,"Paladin",0,0,0,0,0,0,[], dict())
 Michel = Personnage("Michel",3,10,0,0,0,"Guerrier",0,0,0,0,0,0,[], dict())
 Ish = PNJ("Ish", [Epee_maudite.nom, Casque_WazukiIV.nom])
+
 Plaine = Zone("Plaine", [Gluant, Multi_Gluant], "C'est une plaine")
+
+#ULTRA TEST ALPHA D'INTERFACE
+fenetre = Tk()
+def complet():
+    ajout_dans_inventaire(Potion_soin, Arthur, 1)
+    label.config(text=Arthur.inventaire)
+label = Label(fenetre, text=Arthur.inventaire, width=70)
+label.pack()
+
+button = Button(fenetre, text="Ajout", command=partial(complet))
+button.pack()
+
+fenetre.mainloop()
