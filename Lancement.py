@@ -14,21 +14,40 @@ from Initialisation import *
 
 fenetre = Tk()
 
+#########Menu#########
+def menu2jeu(frame):
+    frame.tkraise()
 
+    
+menu = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="red")
+jeu = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="green")
+oui = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="blue")
+for frame in (menu, jeu, oui):
+    frame.grid(row=0, column=0, sticky='news')
 
+#boutons menu    
+tojeu = Button(menu, text="Jouer", command=partial(menu2jeu, jeu))
+tojeu.grid(column=1, row =2, padx=480, pady=300)
 
+tooui = Button(menu, text="test", command=partial(menu2jeu, oui))
+tooui.grid(column=2, row =3)
 
+#boutons jeu
+tomenu = Button(jeu, text="Retour au menu", command=partial(menu2jeu, menu))
+tomenu.grid(column=1, row =2, padx=480, pady=300)
 
+tooui = Button(jeu, text="test", command=partial(menu2jeu, oui))
+tooui.grid(column=2, row =3)
 
+#boutons oui 
+tomenu = Button(oui, text="Retour au menu", command=partial(menu2jeu, menu))
+tomenu.grid(column=1, row =2, padx=480, pady=300)
 
-
-
-
-
-
+tojeu = Button(oui, text="Jouer", command=partial(menu2jeu, jeu))
+tojeu.grid(column=3, row =5)
+#########Menu#########
 
 fenetre.mainloop()
-
 
 ###TEST BETA D'INTERFACE 
 ##fenetre = Tk()
