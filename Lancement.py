@@ -25,6 +25,9 @@ oui = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="blue")
 for frame in (menu, jeu, oui):
     frame.grid(row=0, column=0, sticky='news')
 
+#import la photo 
+
+PhotoImage(file='image/fond.png')
 #boutons menu    
 tojeu = Button(menu, text="Jouer", command=partial(menu2jeu, jeu))
 tojeu.grid(column=1, row =2, padx=480, pady=300)
