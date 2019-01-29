@@ -8,21 +8,28 @@ from FonctionImportante import *
 from tkinter import *
 from functools import *
 from Initialisation import *
-
+import time
 #TEST MENU PRINCIPAL
 
 
 fenetre = Tk()
 
 #########Menu#########
+def final():
+    fenetre.destroy()
+
+def baffe(): #COMMENT METTRE DU DELAY SUR UNE ACTION
+    
+    bafe = Label(jeu, text="Aie !")
+    bafe.pack()
+    bafe.destroy()
+    
 def menu2jeu(frame):
     frame.tkraise()
 
-    
+jeu = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="green")   
 menu = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="red")
-jeu = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="green")
-oui = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="blue")
-for frame in (menu, jeu, oui):
+for frame in (menu, jeu):
     frame.grid(row=0, column=0, sticky='news')
 
 #import la photo 
@@ -30,24 +37,22 @@ for frame in (menu, jeu, oui):
 PhotoImage(file='image/fond.png')
 #boutons menu    
 tojeu = Button(menu, text="Jouer", command=partial(menu2jeu, jeu))
-tojeu.grid(column=1, row =2, padx=480, pady=300)
-
-tooui = Button(menu, text="test", command=partial(menu2jeu, oui))
-tooui.grid(column=2, row =3)
+tojeu.pack()
+quitter = Button(menu, text="Quitter le jeu", command= partial(final))
+quitter.pack()
 
 #boutons jeu
-tomenu = Button(jeu, text="Retour au menu", command=partial(menu2jeu, menu))
-tomenu.grid(column=1, row =2, padx=480, pady=300)
+todungeon = Button(jeu, text="Partir à l'aventure !", command=partial(menu2jeu, menu))
+todungeon.pack()
 
-tooui = Button(jeu, text="test", command=partial(menu2jeu, oui))
-tooui.grid(column=2, row =3)
+toinventory = Button(jeu, text="Voir son inventaire", command=partial(menu2jeu, menu))
+toinventory.pack()
 
-#boutons oui 
-tomenu = Button(oui, text="Retour au menu", command=partial(menu2jeu, menu))
-tomenu.grid(column=1, row =2, padx=480, pady=300)
+baffer = Button(jeu, text="Baffer !", command=partial(baffe))
+baffer.pack()
 
-tojeu = Button(oui, text="Jouer", command=partial(menu2jeu, jeu))
-tojeu.grid(column=3, row =5)
+tomenu = Button(jeu, text="Retour au menu principal", command=partial(menu2jeu, menu))
+tomenu.pack()
 #########Menu#########
 
 fenetre.mainloop()
