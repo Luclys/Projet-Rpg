@@ -9,6 +9,7 @@ from tkinter import *
 from functools import *
 from Initialisation import *
 import time
+from threading import Thread
 #TEST MENU PRINCIPAL
 
 
@@ -18,41 +19,62 @@ fenetre = Tk()
 def final():
     fenetre.destroy()
 
-def baffe(): #COMMENT METTRE DU DELAY SUR UNE ACTION
-    
+def baffe(): 
+    th=Thread(target = lambda : attendre(5))
+    th.start()
+    return None
+ 
+def attendre(duree):
     bafe = Label(jeu, text="Aie !")
-    bafe.pack()
+    for i in range(duree):
+        bafe.pack()
+        time.sleep(1)
     bafe.destroy()
-    
-def menu2jeu(frame):
+    return None
+
+def changemenu(frame):
     frame.tkraise()
 
+inventaire = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="blue")
 jeu = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="green")   
 menu = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="red")
-for frame in (menu, jeu):
+
+for frame in (inventaire, menu, jeu):
     frame.grid(row=0, column=0, sticky='news')
 
 #import la photo 
 
-PhotoImage(file='image/fond.png')
+oui = PhotoImage(file='image/epee.png')
 #boutons menu    
-tojeu = Button(menu, text="Jouer", command=partial(menu2jeu, jeu))
+tojeu = Button(menu, text="Jouer", command=partial(changemenu, jeu))
 tojeu.pack()
 quitter = Button(menu, text="Quitter le jeu", command= partial(final))
 quitter.pack()
 
 #boutons jeu
-todungeon = Button(jeu, text="Partir à l'aventure !", command=partial(menu2jeu, menu))
+todungeon = Button(jeu, text="Partir à l'aventure !", command=partial(changemenu, menu))
 todungeon.pack()
 
-toinventory = Button(jeu, text="Voir son inventaire", command=partial(menu2jeu, menu))
+toinventory = Button(jeu, text="Voir son inventaire", command=partial(changemenu, inventaire))
 toinventory.pack()
 
 baffer = Button(jeu, text="Baffer !", command=partial(baffe))
 baffer.pack()
 
-tomenu = Button(jeu, text="Retour au menu principal", command=partial(menu2jeu, menu))
+tomenu = Button(jeu, text="Retour au menu principal", command=partial(changemenu, menu))
 tomenu.pack()
+
+
+#boutons inventaire
+tojeu1 = Button(inventaire, text="Retour au menu", command=partial(changemenu, jeu))
+tojeu1.pack(side=BOTTOM)
+
+for ligne in range(5):
+    for colonne in range(5):
+        Button(fenetre, text='L%s-C%s' % (ligne, colonne), borderwidth=1).grid(row=ligne, column=colonne)
+
+case1 = Button(inventaire, image = oui , command=partial(changemenu, jeu), relief=RIDGE)
+case1.pack(side=TOP, padx=50, pady=50)
 #########Menu#########
 
 fenetre.mainloop()
