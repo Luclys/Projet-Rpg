@@ -14,8 +14,12 @@ from threading import Thread
 
 
 fenetre = Tk()
-#fenetre.attributes('-fullscreen', 1)
+#fenetre.attributes('-fullscreen', 1) permet le fullscreen
 fenetre.geometry("700x700")
+toto = fenetre.winfo_screenwidth()
+toto1 = fenetre.winfo_screenheight()
+print(toto)
+print(toto1) #La hauteur et la largeur de la fenetre askip
 #########Menu#########
 def final():
     fenetre.destroy()
@@ -51,15 +55,17 @@ for frame in (inventaire, menu, jeu):
     frame.grid(row=0, column=0, sticky='news')
     
 #import la photo
-epee = PhotoImage(file='image/epee.png')
+key = PhotoImage(file='image/key.png')
+epee = PhotoImage(file='image/epee.png') 
 jouer = PhotoImage(file='image/oui.png')
+quitte = PhotoImage(file='image/non.png')
 #boutons menu    
 tojeu = Button(menu, image=jouer, command=partial(changemenu, jeu))
-tojeu.place(x=165, y=100) #permet de placer directement l'element (dans le frame car grid est deja use par le frame lui meme)
+tojeu.place(x=150, y=150) #permet de placer directement l'element (dans le frame car grid est deja use par le frame lui meme)
 
 
-quitter = Button(menu, text="Quitter le jeu", command= partial(final))
-quitter.place(x=325, y=325)
+quitter = Button(menu, image=quitte, command= partial(final))
+quitter.place(x=150, y=350)
 
 #boutons jeu
 todungeon = Button(jeu, text="Partir à l'aventure !", command=partial(changemenu, menu))
@@ -80,8 +86,18 @@ tojeu1 = Button(inventaire, text="Retour au menu", command=partial(changemenu, j
 tojeu1.grid()
 
 
-case1 = Button(inventaire, image = epee , command=partial(changemenu, jeu), relief=RIDGE)
-case1.grid()
+#Affichage de la description d'un item
+def creer():
+    Descr.grid(row=0,column=8)
+
+def detruire():
+    Descr.grid_forget()
+Descr = LabelFrame(inventaire, text="Description", height= 300, width=100)
+Descr.grid_forget()
+slot1 = Button(inventaire, image=epee, borderwidth=1, command=partial(creer) ).grid(row=1, column=1)
+slot2 = Button(inventaire, image=key, borderwidth=1, command=partial(detruire) ).grid(row=1, column=2)
+
+#description items
 #########Menu#########
 
 fenetre.mainloop()
