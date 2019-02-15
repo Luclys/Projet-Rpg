@@ -55,8 +55,9 @@ for frame in (inventaire, menu, jeu):
     frame.grid(row=0, column=0, sticky='news')
     
 #import la photo
-key = PhotoImage(file='image/key.png')
-epee = PhotoImage(file='image/epee.png') 
+img_obj = dict()
+key = PhotoImage(file='image/Casque_WazukiIV.png')
+
 jouer = PhotoImage(file='image/oui.png')
 quitte = PhotoImage(file='image/non.png')
 #boutons menu    
@@ -92,11 +93,31 @@ def creer():
 
 def detruire():
     Descr.grid_forget()
+
+
+def ajout_img():
+    nom_obj = entry_1.get()
+    try:
+        immg = PhotoImage(file='image/' + nom_obj +'.png')
+        img_obj[nom_obj] = immg
+        print("item ajouté !")
+    except IOError:
+        print("Erreur! Le fichier n'a pas pu être ouvert")
+        
+    
+def ajout_inventaire_et_image(): #Permet d'ajouter l'objet dans l'inventaire et decharger son image (et creer un new button si il n'existe pas) 
+    nom_obj = entry_1.get()
+    ajout_dans_inventaire(eval(nom_obj),Jean,1)
+    ajout_img()
+
 Descr = LabelFrame(inventaire, text="Description", height= 300, width=100)
 Descr.grid_forget()
-slot1 = Button(inventaire, image=epee, borderwidth=1, command=partial(creer) ).grid(row=1, column=1)
 slot2 = Button(inventaire, image=key, borderwidth=1, command=partial(detruire) ).grid(row=1, column=2)
 
+
+entry_1 = Entry(inventaire)
+button_1 = Button(inventaire, text="valider", borderwidth=1, command=partial(ajout_inventaire_et_image) ).grid(row=3, column=2)
+entry_1.grid(row=2, column=2)
 #description items
 #########Menu#########
 
