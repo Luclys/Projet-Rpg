@@ -84,15 +84,20 @@ tomenu.grid()
 
 #boutons inventaire
 tojeu1 = Button(inventaire, text="Retour au menu", command=partial(changemenu, jeu))
-tojeu1.grid()
+tojeu1.grid(row=0, column=0)
 
 
 #Affichage de la description d'un item
 def creer():
-    Descr.grid(row=0,column=8)
+    Descr.grid(row=5,column=8)
 
 def detruire():
     Descr.grid_forget()
+
+Descr = LabelFrame(inventaire, text="Description", height= 300, width=100)
+Descr.grid_forget()
+
+
 
 
 def ajout_img():
@@ -103,21 +108,22 @@ def ajout_img():
         print("item ajouté !")
     except IOError:
         print("Erreur! Le fichier n'a pas pu être ouvert")
-        
-    
-def ajout_inventaire_et_image(): #Permet d'ajouter l'objet dans l'inventaire et decharger son image (et creer un new button si il n'existe pas) 
+     
+def ajout_inventaire_et_image():#Permet d'ajouter l'objet dans l'inventaire et decharger son image (et creer un new button si il n'existe pas) 
     nom_obj = entry_1.get()
     ajout_dans_inventaire(eval(nom_obj),Jean,1)
-    ajout_img()
-
-Descr = LabelFrame(inventaire, text="Description", height= 300, width=100)
-Descr.grid_forget()
-slot2 = Button(inventaire, image=key, borderwidth=1, command=partial(detruire) ).grid(row=1, column=2)
+    if nom_obj in img_obj:
+        return "pas besoin de creer un bouton !"
+    else :
+        ajout_img()
+        Button(inventaire, image=img_obj[nom_obj], borderwidth=1, command=partial(creer)).grid(row=(len(img_obj)+4), column=2)
+    
+dead = Button(inventaire, text="detruire", borderwidth=1, command=partial(detruire) ).grid(row=0, column=1)
 
 
 entry_1 = Entry(inventaire)
-button_1 = Button(inventaire, text="valider", borderwidth=1, command=partial(ajout_inventaire_et_image) ).grid(row=3, column=2)
-entry_1.grid(row=2, column=2)
+button_1 = Button(inventaire, text="valider", borderwidth=1, command=partial(ajout_inventaire_et_image) ).grid(row=1, column=1)
+entry_1.grid(row=1, column=0)
 #description items
 #########Menu#########
 
