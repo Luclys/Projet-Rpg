@@ -39,11 +39,7 @@ def attendre(duree):
 
 def changemenu(frame):
     frame.tkraise()
-
-#Prend tout l'écran
-
-
-
+    
 inventaire = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="blue")
 inventaire.grid_propagate(0) #Permet de pas redimensionner le frame par rapport aux widgets
 jeu = Frame(fenetre,borderwidth=2,relief=GROOVE, bg="green")
@@ -54,12 +50,12 @@ menu.grid_propagate(0)
 for frame in (inventaire, menu, jeu):
     frame.grid(row=0, column=0, sticky='news')
     
-#import la photo
+#import des sprites
 img_obj = dict()
-key = PhotoImage(file='image/Casque_WazukiIV.png')
-
 jouer = PhotoImage(file='image/oui.png')
 quitte = PhotoImage(file='image/non.png')
+
+
 #boutons menu    
 tojeu = Button(menu, image=jouer, command=partial(changemenu, jeu))
 tojeu.place(x=150, y=150) #permet de placer directement l'element (dans le frame car grid est deja use par le frame lui meme)
@@ -88,16 +84,16 @@ tojeu1.grid(row=0, column=0)
 
 
 #Affichage de la description d'un item
-def creer():
-    Descr.grid(row=5,column=8)
-
-def detruire():
-    Descr.grid_forget()
-
-Descr = LabelFrame(inventaire, text="Description", height= 300, width=100)
-Descr.grid_forget()
-
-
+description_item = list()
+def description(nom_obj):
+    if description_item != list():
+        description_item[0].destroy()
+        del description_item[0]
+        description_item.append(LabelFrame(inventaire, text="Description", height= 300, width=100))
+    else :
+        description_item.append(LabelFrame(inventaire, text="Description", height= 300, width=100))
+    description_item[0].grid(row=5, column=8)
+    Label(description_item[0], text=eval(nom_obj).description).grid()
 
 
 def ajout_img():
@@ -116,15 +112,14 @@ def ajout_inventaire_et_image():#Permet d'ajouter l'objet dans l'inventaire et d
         return "pas besoin de creer un bouton !"
     else :
         ajout_img()
-        Button(inventaire, image=img_obj[nom_obj], borderwidth=1, command=partial(creer)).grid(row=(len(img_obj)+4), column=2)
+        Button(inventaire, image=img_obj[nom_obj], borderwidth=1, command=partial(description, nom_obj)).grid(row=(len(img_obj)+4), column=2)
     
-dead = Button(inventaire, text="detruire", borderwidth=1, command=partial(detruire) ).grid(row=0, column=1)
+dead = Button(inventaire, text="detruire", borderwidth=1).grid(row=0, column=1)
 
 
 entry_1 = Entry(inventaire)
 button_1 = Button(inventaire, text="valider", borderwidth=1, command=partial(ajout_inventaire_et_image) ).grid(row=1, column=1)
 entry_1.grid(row=1, column=0)
-#description items
 #########Menu#########
 
 fenetre.mainloop()

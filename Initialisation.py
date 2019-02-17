@@ -11,8 +11,8 @@ from functools import *
 #Ici on met les persos + les items pour test les fonctions et les classes
 Poudre_magique = Item("Poudre de perlinpainpain",50,20, 10, "C'est une poudre magiiiiique !")
 Ronce_demoniaque = Item("Ronce démoniaque",50,90, 10, "Elle pousse dans le cote cache de la lune.")
-Epee_maudite = Arme("Epee maudite", 1,90,1,"Oui", 5, 0, 2, 0, 0 ,"","","main")
-Casque_WazukiIV = Equipement("Casque du roi Wazuki IV", 1,1,1, 0, 10, 0, 200, 2,"Oui","","","tete")
+Epee_maudite = Arme("Epee maudite", 1,90,1,"Ceci est l'épée maudite !", 5, 0, 2, 0, 0 ,"","","main")
+Casque_WazukiIV = Equipement("Casque du roi Wazuki IV", 1,1,1, 0, 10, 0, 200, 2,"Vieux casque dégueulasse","","","tete")
 Potion_soin = Consommable("Potion de soin",1,1,1,"Potion qui soigne 2 pv", 2, 12)
 Brulure = Effet("Brûlure", 2 , 2, "Au secours ça brule !")
 Poison = Effet("Poison", 2 , 2, "J'ai mal")
