@@ -92,9 +92,10 @@ def ouvrir_objet():
 
 #Ferme le sac à dos et la description visible
 def fermer_objet():
+    if description_item != list():
+        description_cacher()
     inventaire_objet.grid_forget()
     ferme_inventaire.grid_forget()
-    description_cacher()
 
 #On utilise une liste pour "nommer" la frame de description     
 description_item = list()
@@ -129,23 +130,33 @@ def ajout_img():
         print("item ajouté !")
     except IOError:
         print("Erreur! Le fichier n'a pas pu être ouvert")
-     
+
+ligne = 0 #Position des objets dans le sac à dos
+colonne = 0
+    
 def ajout_inventaire_et_image():#Permet d'ajouter l'objet dans l'inventaire et decharger son image sur le bouton(et creer un new button si il n'existe pas) 
     nom_obj = entry_1.get()
+    global ligne 
+    global colonne 
     ajout_dans_inventaire(eval(nom_obj),Jean,1) #JEAN DOIT ETRE REMPLACER PAR LE NOM DU PERSO QUE LE JOUEUR CHOISI [A FAIRE]
     if nom_obj in img_obj:
         return "pas besoin de creer un bouton !"
     else :
         ajout_img()
-        Button(inventaire_objet, image=img_obj[nom_obj], borderwidth=1, command=partial(description_afficher, nom_obj)).grid(row=(len(img_obj)+4), column=2)
+        slot = Button(inventaire_objet, image=img_obj[nom_obj], borderwidth=1, command=partial(description_afficher, nom_obj))
+        slot.grid(row=ligne, column=colonne)
+        colonne +=1 #Modifie la position du prochain bouton d'une colonne
+        if colonne > 6: #Si on arrive à la colonne 7 alors la colonne retourne à 0 et on saute une ligne 
+            colonne = 0
+            ligne += 1
+        #DOIT PROGRAMMER L'AJOUT D'ITEM SI LES 30 CASES DU SAC SONT PRISEES [A FAIRE]
 
 ferme_inventaire = Button(inventaire, text="Fermer l'inventaire", borderwidth=1, command=partial(fermer_objet))
 ouvre_inventaire = Button(inventaire, text="Ouvrir l'inventaire d'objet", borderwidth=1, command=partial(ouvrir_objet)).grid(row=0, column=1)
 
 #Oblige le sac à dos a se fermer quand on repasse au menu principal
 def backmenu(frame):
-    if description_item != list(): 
-        fermer_objet()
+    fermer_objet()
     changemenu(frame)
 
 
