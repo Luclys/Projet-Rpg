@@ -97,9 +97,25 @@ def fermer_objet():
     inventaire_objet.grid_forget()
     ferme_inventaire.grid_forget()
 
-#On utilise une liste pour "nommer" la frame de description     
+def jeter_item(nom_obj): #Jete les items
+    global ligne 
+    global colonne 
+    if Jean.inventaire[eval(nom_obj).nom] == 1:
+        supprimer_de_inventaire(eval(nom_obj), Jean, 1)
+        description_item[0].destroy()
+        bouton_item[nom_obj].grid_forget()
+        del bouton_item[nom_obj]
+        del img_obj[nom_obj]
+        colonne = (colonne - 1)%7
+        if colonne == 6:
+            ligne -= 1
+    else :
+        supprimer_de_inventaire(eval(nom_obj), Jean, 1)
+        description_afficher(nom_obj) #Permet d'actualiser "en temps réel" la quantité possédé
+    
+#On utilise une liste pour "nommer" la frame de description et les boutons   
 description_item = list()
-
+bouton_item = dict()
 #Vire la frame de description
 def description_cacher():
     description_item[0].destroy()
@@ -119,7 +135,8 @@ def description_afficher(nom_obj):
     Label(description_item[0], text="Quantité : ").grid(row=1, column = 0)
     Label(description_item[0], text=Jean.inventaire[eval(nom_obj).nom]).grid(row=1, column = 1) #JEAN DOIT ETRE REMPLACER PAR LE NOM DU PERSO QUE LE JOUEUR CHOISI [A FAIRE]
     Label(description_item[0], text=eval(nom_obj).description).grid(row=2, column = 0)
-    Button(description_item[0], text="Fermer la description", borderwidth=1, command=partial(description_cacher)).grid(row=5, column=0) #Fermer la description
+    Button(description_item[0], text="Fermer la description", borderwidth=1, command=partial(description_cacher)).grid(row=4, column=0) #Fermer la description
+    Button(description_item[0], text="Jeter l'item", borderwidth=1, command=partial(jeter_item, nom_obj)).grid(row=5, column=0) #Jete l'item
 
 #Ajoute une image dans un dico pour pouvoir l'utiliser plus tard 
 def ajout_img():
@@ -140,11 +157,12 @@ def ajout_inventaire_et_image():#Permet d'ajouter l'objet dans l'inventaire et d
     global colonne 
     ajout_dans_inventaire(eval(nom_obj),Jean,1) #JEAN DOIT ETRE REMPLACER PAR LE NOM DU PERSO QUE LE JOUEUR CHOISI [A FAIRE]
     if nom_obj in img_obj:
-        return "pas besoin de creer un bouton !"
+        print("pas besoin de creer un bouton !")
+        description_afficher(nom_obj)
     else :
         ajout_img()
-        slot = Button(inventaire_objet, image=img_obj[nom_obj], borderwidth=1, command=partial(description_afficher, nom_obj))
-        slot.grid(row=ligne, column=colonne)
+        bouton_item[nom_obj] = (Button(inventaire_objet, image=img_obj[nom_obj], borderwidth=1, command=partial(description_afficher, nom_obj))) #Les boutons sont dans une liste comme ça ils ont un nom
+        bouton_item[nom_obj].grid(row=ligne, column=colonne)
         colonne +=1 #Modifie la position du prochain bouton d'une colonne
         if colonne > 6: #Si on arrive à la colonne 7 alors la colonne retourne à 0 et on saute une ligne 
             colonne = 0
@@ -170,20 +188,3 @@ entry_1.grid(row=1, column=0)
 #########Menu#########
 
 fenetre.mainloop()
-
-###TEST BETA D'INTERFACE 
-##fenetre = Tk()
-##def complet(item, perso, nb):
-##    ajout_dans_inventaire(item, perso, nb)
-##    label.config(text=perso.inventaire)
-##    
-##label = Label(fenetre, text=Arthur.inventaire, width=200)
-##label.grid(column=1, row= 0)
-##
-##ajout_soin = Button(fenetre, text="Ajoute une potion de soin", command=partial(complet, Potion_soin, Arthur, 1))
-##ajout_soin.grid(column=0, row= 1)
-##
-##ajout_casque = Button(fenetre, text="Ajoute le casque de Wazuki IV", command=partial(complet, Casque_WazukiIV, Arthur, 1))
-##ajout_casque.grid(column=3, row= 1)
-##
-##fenetre.mainloop()
