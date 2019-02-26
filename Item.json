@@ -1,0 +1,15 @@
+{ 
+	"nom" : "Casque du roi Wazuki IV",
+	"cout" : 1,
+	"rarete" : 1 ,
+	"poids" : 1,
+	"force" : 0,
+	"puissance" : 10,
+	"vitesse" : 0,
+	"mana" : 200,
+	"defense" : 2,
+	"description" : "Vieux casque dégueulasse",
+	"effet_sur_joueur" : "",
+	"effet_sur_mob" : "",
+	"emplacement" : "tete"
+}
