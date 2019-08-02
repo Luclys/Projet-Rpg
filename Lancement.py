@@ -6,7 +6,7 @@ from SauvegardeEtLoad import *
 from Classes import *
 from FonctionImportante import *
 from Visualisation import *
-
+import json
 
 Poudre_magique = Item("Poudre de perlinpainpain",50,20, 10, "C'est une poudre magiiiiique !")
 Ronce_demoniaque = Item("Ronce démoniaque",50,90, 10, "Elle pousse dans le cote cache de la lune.")
@@ -32,22 +32,27 @@ Plaine = Zone("Plaine", [Gluant, Multi_Gluant], "C'est une plaine")
 
 #Classe disponible (ici juste le string. Nécessite une fonction pour attribuer les sorts et les items de base)
 classeDispo = ['Mage', 'Paladin', 'Pretre', 'Guerrier']
+
+
 def menuPrincipale():
     continuer = True
-    joueur = list()
     while continuer:
-        print("1.Jouer \n2.Quitter")
+        print("1.Nouveau personnage \n2.Retour à l'aventure !\n3.Quitter")
         choix = input('Que voulez-vous faire ? : ')
         if choix == '1':
             nom = input('Entre ton nom : ')
             classe = input('Entre ta classe : ')
-            while classe not in classeDispo:
-                classe = input("Cette classe n'existe pas \nSelectionne une autre classe : ")
+            while classe not in classeDispo: #Si l'individu choisi une classe qui n'existe pas (petit coquin)
+                classe = input("Cette classe n'existe pas \nSelectionne une des classes si dessous : \n- " + '\n- '.join(classeDispo) + '\n Fais ton choix : ')
+            #CREATION DU JOUEUR ON LE STOCK DANS LA LISTE 'joueur' car sinon il ne peut pas etre réutilisé    
             joueur.append(creerPerso(nom, randint(1,5), randint(1,5)\
                                      , randint(1,5), randint(1,5), randint(1,5), classe\
-                                     , randint(1,5),randint(1,5),randint(1,5),randint(1,5),randint(1,5),randint(1,5), speelFromClasse(classe), dict()))
+                                     , randint(1,5),randint(1,5),randint(1,5),randint(1,5)\
+                                     ,randint(1,5),randint(1,5), speelFromClasse(classe), dict()))
             showPerso(joueur[0])
         elif choix == '2':
+            loadAll()
+        elif choix == '3':
             print('Bye !')
             continuer = False
 
@@ -60,3 +65,5 @@ def speelFromClasse(classe): #Attribut les sorts par rapport à la classe choisi
     }.get(classe, [])
         
     
+if __name__ == '__main__':
+    menuPrincipale()
