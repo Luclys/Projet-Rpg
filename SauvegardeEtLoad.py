@@ -22,10 +22,21 @@ def savePerso(perso):         #Permet d'enregistrer un personnage dans un fichie
     if not os.path.isdir("perso/"):
         os.mkdir('perso')
     while os.path.exists('perso/'+i):
+        perso_open = pickle.load(open('perso/'+i, 'rb'))
+        if perso_open.nom == perso.nom:
+            choice = input('\n***Personnage déjà sauvegardé.\n***Voulez vous écraser la sauvegarde ? :\n-Oui\n-Non\n ')
+            if choice == 'Oui':
+                os.remove('perso/'+i)
+                pickle.dump(perso, open('perso/'+i, 'wb'))
+                 print('\n***' + joueur[i].nom + ' a été sauvegardé !***\n')
+                return 0
+            else:
+                return 0
         i = int(i)
         i+=1
         i = str(i)
     pickle.dump(perso, open('perso/'+i, 'wb'))
+    print('\n***' + joueur[i].nom + ' a été sauvegardé !***\n')
 
 def loadPerso(nom):
     return pickle.load(open('perso/'+nom, 'rb'))
@@ -42,7 +53,7 @@ def loadAll(): #    Fonction pour charger tout les personnages et les memoriser 
             nom_joueur.append(j.nom)
     while os.path.exists('perso/'+i):
         if loadPerso(str(i)).nom in nom_joueur:
-            print('Joueur déjà chargé')
+            print('\n***Joueur déjà chargé***\n')
         else:
             joueur.append(loadPerso(str(i)))
         i = int(i)

@@ -7,7 +7,7 @@ from Classes import *
 from FonctionImportante import *
 from Visualisation import *
 import json
-
+import time
 Poudre_magique = Item("Poudre de perlinpainpain",50,20, 10, "C'est une poudre magiiiiique !")
 Ronce_demoniaque = Item("Ronce démoniaque",50,90, 10, "Elle pousse dans le cote cache de la lune.")
 Epee_maudite = Arme("Epee maudite", 1,90,1,"Ceci est l'épée maudite !", 5, 0, 2, 0, 0 ,"","","main")
@@ -57,7 +57,6 @@ def menuPrincipale():
             for i in range(len(joueur)):
                 if joueur[i].nom == sauv:
                     savePerso(joueur[i])
-                    print(joueur[i].nom + ' a été sauvegardé !')
         elif choix == '4':
             print('Bye !')
             continuer = False
