@@ -36,20 +36,16 @@ def loadAll(): #    Fonction pour charger tout les personnages et les memoriser 
     if not os.path.isdir("perso/"):
         print('Aucun personnage enregistré !')
         return 'Aucun personnage enregistré !'
+    nom_joueur = list()
+    if len(joueur) != 0:
+        for j in joueur:
+            nom_joueur.append(j.nom)
     while os.path.exists('perso/'+i):
-        joueur.append(loadPerso(str(i)))
+        if loadPerso(str(i)).nom in nom_joueur:
+            print('Joueur déjà chargé')
+        else:
+            joueur.append(loadPerso(str(i)))
         i = int(i)
         i += 1
         i = str(i)
-#PAS ENCORE TESTEE, Faut faire idem pour la sauvegarde (enregistrer les infos dans un dossier au nom du perso pour que ce soit compatible avec le chargement)
-def ChargerPerso(perso): #fonction plus complète pour charger à partir d'un Rep
-    choix = input("Voulez vous spécifier la destination [O/n]?: ")
-    if choix == 'O':
-        desti = input('insérez votre destination : ')#il faut mettre la destination à partir de la racine
-    name = input("Quel est votre nom jeune aventurier ?: ")
-    if os.path.exists(desti + name):
-        print("Oh je vous reconnait !!!")
-    else: 
-        os.makedirs(desti + name,511)
-        usr = loadPerso(name)
-    return usr
+

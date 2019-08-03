@@ -37,7 +37,7 @@ classeDispo = ['Mage', 'Paladin', 'Pretre', 'Guerrier']
 def menuPrincipale():
     continuer = True
     while continuer:
-        print("1.Nouveau personnage \n2.Retour à l'aventure !\n3.Quitter")
+        print("1.Nouveau personnage \n2.Retour à l'aventure !\n3.Sauvegarder\n4.Quitter")
         choix = input('Que voulez-vous faire ? : ')
         if choix == '1':
             nom = input('Entre ton nom : ')
@@ -53,6 +53,12 @@ def menuPrincipale():
         elif choix == '2':
             loadAll()
         elif choix == '3':
+            sauv = input('Quel personnage sauvegarder ? : ')
+            for i in range(len(joueur)):
+                if joueur[i].nom == sauv:
+                    savePerso(joueur[i])
+                    print(joueur[i].nom + ' a été sauvegardé !')
+        elif choix == '4':
             print('Bye !')
             continuer = False
 
