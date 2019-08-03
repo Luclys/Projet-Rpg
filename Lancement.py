@@ -23,9 +23,6 @@ Glace = Sort("Glace", 50, "Non ce n'est pas celle que tu manges l'été", 10, 0,
 Mage = Classe("Mage",[Boule_de_feu.nom, Glace.nom])
 Guerrier = Classe("Guerrier",[])
 Paladin = Classe("Paladin",[])
-Arthur = Personnage("Arthur",8,10,0,0,0,"Mage",0,0,0,0,0,0,[Boule_de_feu.nom, Glace.nom], dict())
-Jean = Personnage("Jean",3,10,0,0,0,"Paladin",0,0,0,0,0,0,[], dict())
-Michel = Personnage("Michel",3,10,0,0,0,"Guerrier",0,0,0,0,0,0,[], dict())
 Ish = PNJ("Ish", [Epee_maudite.nom, Casque_WazukiIV.nom])
 
 Plaine = Zone("Plaine", [Gluant, Multi_Gluant], "C'est une plaine")
@@ -41,6 +38,12 @@ def menuPrincipale():
         choix = input('Que voulez-vous faire ? : ')
         if choix == '1':
             nom = input('Entre ton nom : ')
+            nom_joueur = list()
+            if len(joueur) != 0:
+                for j in joueur:
+                    nom_joueur.append(j.nom)
+            while nom in nom_joueur:
+                nom = input('\n***' + nom + ' est déjà utilisé. Entrez un autre nom***\n')
             classe = input('Entre ta classe : ')
             while classe not in classeDispo: #Si l'individu choisi une classe qui n'existe pas (petit coquin)
                 classe = input("Cette classe n'existe pas \nSelectionne une des classes si dessous : \n- " + '\n- '.join(classeDispo) + '\n Fais ton choix : ')

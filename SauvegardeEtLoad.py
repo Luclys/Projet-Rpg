@@ -28,7 +28,7 @@ def savePerso(perso):         #Permet d'enregistrer un personnage dans un fichie
             if choice == 'Oui':
                 os.remove('perso/'+i)
                 pickle.dump(perso, open('perso/'+i, 'wb'))
-                 print('\n***' + joueur[i].nom + ' a été sauvegardé !***\n')
+                print('\n***' + joueur[int(i)].nom + ' a été sauvegardé !***\n')
                 return 0
             else:
                 return 0
@@ -36,7 +36,7 @@ def savePerso(perso):         #Permet d'enregistrer un personnage dans un fichie
         i+=1
         i = str(i)
     pickle.dump(perso, open('perso/'+i, 'wb'))
-    print('\n***' + joueur[i].nom + ' a été sauvegardé !***\n')
+    print('\n***' + joueur[int(i)].nom + ' a été sauvegardé !***\n')
 
 def loadPerso(nom):
     return pickle.load(open('perso/'+nom, 'rb'))
@@ -53,7 +53,11 @@ def loadAll(): #    Fonction pour charger tout les personnages et les memoriser 
             nom_joueur.append(j.nom)
     while os.path.exists('perso/'+i):
         if loadPerso(str(i)).nom in nom_joueur:
-            print('\n***Joueur déjà chargé***\n')
+            input('\n***' + loadPerso(str(i)).nom + ' déjà chargé***\nVoulez vous écraser le personnage en cours ? : \n-Oui\n-Non\n')
+            if choice == 'Oui':
+                index = nom_joueur.index(loadPerso(str(i)).nom)
+                joueur[index] = loadPerso(str(i))
+                print('***' + loadPerso(str(i)).nom + ' chargé.\nBon jeu !***')
         else:
             joueur.append(loadPerso(str(i)))
         i = int(i)
