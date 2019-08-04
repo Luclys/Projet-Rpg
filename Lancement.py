@@ -1,5 +1,8 @@
 #Ici on met les persos + les items pour test les fonctions et les classes
 from Visualisation import *
+import time
+import platform
+import os
 
 Poudre_magique = Item("Poudre de perlinpainpain",50,3, 10, "C'est une poudre magiiiiique !")
 Ronce_demoniaque = Item("Ronce démoniaque",50,90, 10, "Elle pousse dans le cote cache de la lune.")
@@ -23,44 +26,73 @@ Plaine = Zone("Plaine", [Gluant, Multi_Gluant], "C'est une plaine")
 #Classe disponible (ici juste le string. Nécessite une fonction pour attribuer les sorts et les items de base)
 classeDispo = ['Mage', 'Paladin', 'Guerrier']
 
-
-def menuPrincipale():
+def menuPrincipale(perso):
+    loadAll()
     continuer = True
     while continuer:
-        print("1.Nouveau personnage \n2.Retour à l'aventure !\n3.Virer en donjon !\n4.Sauvegarder\n5.Quitter")
+        print("1.Nouveau personnage \n2.Charger un personnage !\n3.Quitter\n")
         choix = input('Que voulez-vous faire ? : ')
         if choix == '1':
-            nom = input('Entre ton nom : ')
+            clean()
+            print('\n**********************************************************************************************\n'\
+                  + 'Bienvenue dans la création de personnage !\n'\
+                  + "Le jeu n'a pas encore d'interface mais vous verrez même en mode console il est très sympa :) ! \n"\
+                  + '**********************************************************************************************\n')
+            time.sleep(2)
+            nom = input('Pour commencer entrez le nom de votre Héro ! : ')
             nom_joueur = list()
             if len(joueur) != 0:
                 for j in joueur:
                     nom_joueur.append(j.nom)
             while nom in nom_joueur:
-                nom = input('\n***' + nom + ' est déjà utilisé. Entrez un autre nom***\n')
-            classe = input('Entre ta classe : ')
+                nom = input('\n***Euh excuse moi mais tu as déjà un perso qui se nomme ' + nom + ' D: ***\n'\
+                            +'Entre un autre nom ! : ')
+            print('\nSuper ! Maintenant tu dois choisir ta classe \n\nVoici les classes disponibles :')
+            time.sleep(1)
+            classe = input("\n- " + '\n- '.join(classeDispo) + '\n\nFais ton choix : ')
             while classe not in classeDispo: #Si l'individu choisi une classe qui n'existe pas (petit coquin)
                 classe = input("Cette classe n'existe pas \nSelectionne une des classes si dessous : \n- " + '\n- '.join(classeDispo) + '\n Fais ton choix : ')
             #CREATION DU JOUEUR ON LE STOCK DANS LA LISTE 'joueur' car sinon il ne peut pas etre réutilisé    
-            joueur.append(creerPerso(nom, randint(1,5), randint(1,5)\
+            perso[0] = creerPerso(nom, randint(1,5), randint(1,5)\
                                      , randint(1,5), randint(1,5), randint(1,5), classe\
                                      , randint(1,5),randint(1,5),randint(1,5),randint(1,5)\
-                                     ,randint(1,5),randint(1,5), eval(classe).get_sort(), dict()))
+                                     ,randint(1,5),randint(1,5), eval(classe).get_sort(), dict())
 
-            joueur[0].get_caracteristique()
+            print('\nVoila ton aventure peut démarrer jeune héro !\n')
+            time.sleep(1.2)
+            print('Tu vas rejoindre ce monde extraordinaire peuplé par des créatures hors du commun !\n\n')
+            time.sleep(1.2)
         elif choix == '2':
-            loadAll()
-            
+            clean()
+            nom_joueur = list()
+            print('\n**********************************************************************************************\n'\
+                  + '******************************Sélectionne un de tes personnages*******************************')
+            for i in joueur:
+                print('***' + i.nom + ' - Niveau : ' + str(i.niveau))
+                nom_joueur.append(i.nom)
+            print('**********************************************************************************************\n')
+            choix_perso = input('\n\nFais ton choix : ')
+            while choix_perso not in nom_joueur: 
+                choix_perso = input("Ce personnage n'existe pas \nSelectionne un des personnages existants ! : \n ")
+            index = nom_joueur.index(choix_perso)
+            perso[0] = joueur[index]
+            print('\nPersonnage chargé ! Bon jeu ! :)\n\n')
+            time.sleep(1.2)
         elif choix == '3':
-            loadAll()
+            print('Bye ! Reviens vite !')
+            time.sleep(1)
+            continuer = False
         elif choix == '4':
             sauv = input('Quel personnage sauvegarder ? : ')
             for i in range(len(joueur)):
                 if joueur[i].nom == sauv:
                     savePerso(joueur[i])
-        elif choix == '5':
-            print('Bye !')
-            continuer = False
-        
-    
+            
+def clean():   
+    if platform.system() == 'Windows':
+        os.system('cls')
+    else:
+        os.system('clear')
+            
 if __name__ == '__main__':
-    menuPrincipale()
+    menuPrincipale(perso)

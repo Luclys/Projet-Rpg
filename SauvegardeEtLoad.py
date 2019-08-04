@@ -5,7 +5,7 @@ from Classes import *
 
 
 joueur = list()
-
+perso = [0]
 
 #Fonction des Personnages :
 
