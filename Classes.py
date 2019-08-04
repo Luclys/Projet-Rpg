@@ -13,8 +13,7 @@ class Personnage:
             'bras1' : 0,
             'bras2' : 0,
             'pieds' : 0,
-            'main' : 0,
-            'tete' : 0}
+            'main' : 0}
     ############
     argent = 0
     exp = 0
@@ -36,9 +35,8 @@ class Personnage:
         self.poidsMax = poidsMax
         self.sort_utilisable = sort_utilisable #Voir les sorts dispo nécéssaires pour les trier etc (dans une liste)
         self.inventaire = inventaire
-        
     #METHODES DE MODIFICATION
-        
+    
     def ajout_dans_inventaire(self,item,nb_exemplaire):
         if item.nom in self.inventaire :
             self.inventaire[item.get_nom()] += nb_exemplaire
@@ -64,14 +62,14 @@ class Personnage:
     def mettre_equipement(self, item): 
         if self.empla[item.get_emplacement()] == False and item.nom in self.inventaire:
             self.empla[item.get_emplacement()] = item.nom
-            _up_stats(self, item)
+            self._up_stats(item)
         else:
             print('Il y a déjà un objet ici !')
 
     def enlever_equipement(self, item):
         if self.empla[item.get_emplacement()]:
             self.empla[item.get_emplacement()] = 0
-            _down_stats(self,item)
+            self._down_stats(item)
         else:
             print("Il n'y a pas d'objet ici...")
 
@@ -93,7 +91,7 @@ class Personnage:
             self.niveau += 1
             self.exp = abs(self.expmax - self.exp)
             self.expmax *= uniform(1.20, 1.5)
-            _ameliore_stats(self)
+            self._ameliore_stats()
 
     def donne_argent(self, monstre): #donne de l'argent au perso voir comment on la calcule
         self.argent += (10 + monstre.get_niveau())

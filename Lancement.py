@@ -45,9 +45,11 @@ def menuPrincipale():
                                      , randint(1,5), randint(1,5), randint(1,5), classe\
                                      , randint(1,5),randint(1,5),randint(1,5),randint(1,5)\
                                      ,randint(1,5),randint(1,5), eval(classe).get_sort(), dict()))
+
             joueur[0].get_caracteristique()
         elif choix == '2':
             loadAll()
+            
         elif choix == '3':
             loadAll()
         elif choix == '4':
