@@ -12,6 +12,7 @@
 
 ## Usage
 
+Just run 
 ```sh
-Just run Lancement.py
+Lancement.py
 ```
