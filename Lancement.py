@@ -61,6 +61,7 @@ def menuPrincipale(perso):
             print('\nVoila ton aventure peut démarrer jeune héro !\n')
             time.sleep(1.2)
             print('Tu vas rejoindre ce monde extraordinaire peuplé par des créatures hors du commun !\n\n')
+            savePerso(perso[0])
             time.sleep(1.2)
         elif choix == '2':
             clean()
@@ -78,16 +79,13 @@ def menuPrincipale(perso):
             perso[0] = joueur[index]
             print('\nPersonnage chargé ! Bon jeu ! :)\n\n')
             time.sleep(1.2)
+            clean()
         elif choix == '3':
             print('Bye ! Reviens vite !')
             time.sleep(1)
             continuer = False
-        elif choix == '4':
-            sauv = input('Quel personnage sauvegarder ? : ')
-            for i in range(len(joueur)):
-                if joueur[i].nom == sauv:
-                    savePerso(joueur[i])
-            
+        else :
+            print('\n***Commande inconnue :(***\n\n')
 def clean():   
     if platform.system() == 'Windows':
         os.system('cls')

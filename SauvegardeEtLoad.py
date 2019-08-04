@@ -26,10 +26,10 @@ def savePerso(perso):         #Permet d'enregistrer un personnage dans un fichie
             if choice == 'Oui':
                 os.remove('perso/'+i)
                 pickle.dump(perso, open('perso/'+i, 'wb'))
-                print('\n***' + joueur[int(i)].nom + ' a été sauvegardé !***\n')
+                print('\n***' + str(perso.nom) + ' a été sauvegardé !***\n')
                 os.remove('equipement/'+i)
                 pickle.dump(perso.empla,open('equipement/'+i, 'wb'), protocol=pickle.HIGHEST_PROTOCOL)
-                print('\n***' + str(joueur[int(i)].empla) + ' a été sauvegardé !***\n')
+                print('\n***' + str(perso.empla) + ' a été sauvegardé !***\n')
                 return 0
             else:
                 return 0
@@ -37,9 +37,9 @@ def savePerso(perso):         #Permet d'enregistrer un personnage dans un fichie
         i+=1
         i = str(i)
     pickle.dump(perso, open('perso/'+i, 'wb'))
-    print('\n***' + joueur[int(i)].nom + ' a été sauvegardé !***\n')
+    print('\n***' + str(perso.nom) + ' a été sauvegardé !***\n')
     pickle.dump(perso, open('equipement/'+i, 'wb'), protocol=pickle.HIGHEST_PROTOCOL)
-    print('\n***' + str(joueur[int(i)].empla) + ' a été sauvegardé !***\n')
+    print('\n***' + str(perso.empla) + ' a été sauvegardé !***\n')
 
 def loadPerso(nom):
     return pickle.load(open('perso/'+nom, 'rb'))
