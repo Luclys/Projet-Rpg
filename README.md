@@ -4,12 +4,6 @@
 
 > Ceci est un RPG basique en cours de programmation, nous sommes 3 à bosser dessus. Cela nous amuse et nous permet d'apprendre de nouveaux frameworks ou de nouvelles techniques de prog
 
-## Install
-
-```sh
-npm install
-```
-
 ## Usage
 
 ```sh
