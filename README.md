@@ -1,13 +1,26 @@
-# Projet-Rpg - FORK INTERFACE 
-Projet de jeu RPG 
+# Welcome to RPG becoming 👋
+![Version](https://img.shields.io/badge/version-0.2.4-blue.svg?cacheSeconds=2592000)
+[![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/Luclys/Projet-Rpg/wiki)
+
+> Ceci est un RPG basique en cours de programmation, nous sommes 3 à bosser dessus. Cela nous amuse et nous permet d'apprendre de nouveaux frameworks ou de nouvelles techniques de prog
+
+## Install
+
+```sh
+npm install
+```
+
+## Usage
+
+```sh
+Just run Lancement.py
+```
+
+## Author
+
+👤 **Zorrino Luclys Oreobliton**
 
 
-Ceci est un fork utilisé ici pour le développement de l'interface.
+## Show your support
 
-Tu sais, c'est cool les README, il faut les mettre ! :O
-
-
-
-... je crois ?
-
-Et  ba complete le j'ai pas le temps xD
+Give a ⭐️ if this project helped you!
