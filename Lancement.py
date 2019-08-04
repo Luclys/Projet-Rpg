@@ -27,7 +27,8 @@ Plaine = Zone("Plaine", [Gluant, Multi_Gluant], "C'est une plaine")
 classeDispo = ['Mage', 'Paladin', 'Guerrier']
 
 def menuPrincipale(perso):
-    loadAll()
+    if os.path.isdir("perso/"):
+        loadAll()
     continuer = True
     while continuer:
         print("1.Nouveau personnage \n2.Charger un personnage !\n3.Quitter\n")
@@ -63,6 +64,7 @@ def menuPrincipale(perso):
             print('Tu vas rejoindre ce monde extraordinaire peuplé par des créatures hors du commun !\n\n')
             savePerso(perso[0])
             time.sleep(1.2)
+            hub(perso[0])
         elif choix == '2':
             clean()
             nom_joueur = list()
@@ -72,20 +74,48 @@ def menuPrincipale(perso):
                 print('***' + i.nom + ' - Niveau : ' + str(i.niveau))
                 nom_joueur.append(i.nom)
             print('**********************************************************************************************\n')
-            choix_perso = input('\n\nFais ton choix : ')
-            while choix_perso not in nom_joueur: 
-                choix_perso = input("Ce personnage n'existe pas \nSelectionne un des personnages existants ! : \n ")
-            index = nom_joueur.index(choix_perso)
-            perso[0] = joueur[index]
-            print('\nPersonnage chargé ! Bon jeu ! :)\n\n')
-            time.sleep(1.2)
-            clean()
+            if nom_joueur :
+                choix_perso = input('\n\nFais ton choix : ')
+                while choix_perso not in nom_joueur: 
+                    choix_perso = input("Ce personnage n'existe pas \nSelectionne un des personnages existants ! : \n ")
+                index = nom_joueur.index(choix_perso)
+                perso[0] = joueur[index]
+                print('\nPersonnage chargé ! Bon jeu ! :)\n\n')
+                time.sleep(1.2)
+                clean()
+                hub(perso[0])
+            else:
+                print('Aucun personnage dans votre sauvegarde :/\n\n')
         elif choix == '3':
             print('Bye ! Reviens vite !')
             time.sleep(1)
             continuer = False
         else :
             print('\n***Commande inconnue :(***\n\n')
+
+
+            
+def hub(perso):
+    continuer = True
+    while continuer:
+        print('\n**********************************************************************************************\n'\
+            + 'Hey ' + perso.nom + ' !\n'\
+            + "1.Virée en donjon \n2.Sauvegarder !\n3.Retour au menu principal\n"\
+            + '**********************************************************************************************\n')
+        choix = input('Que voulez-vous faire ? : ')
+        if choix == '2':
+            savePerso(perso)
+            
+        elif choix == '3':
+            clean()
+            continuer = False
+
+        else:
+            print('\n***Commande inconnue :(***\n\n')
+
+
+
+    
 def clean():   
     if platform.system() == 'Windows':
         os.system('cls')
