@@ -1,11 +1,7 @@
 #-*- coding: utf-8 -*-
 import os.path
-from random import *
 import pickle
-
-from SauvegardeEtLoad import *
 from Classes import *
-from Visualisation import * 
 
 
 joueur = list()

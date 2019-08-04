@@ -1,23 +1,5 @@
 #-*- coding: utf-8 -*-
-import os.path
-from random import *
-import pickle
 from SauvegardeEtLoad import *
-from Classes import *
-from FonctionImportante import *
-
-
-def showItem(item):
-    print("Nom = ",item.nom)
-    print("Cout = ",item.cout)
-    rareteToStr(item) #Rareté de l'item
-    print("L'item donne ", item.force, " de force")
-    print("L'item donne ", item.puissance, " de puissance")
-    print("L'item donne ", item.vitesse, " d'accéleration")
-    print("L'item donne ", item.mana, " de mana")
-    print("L'item donne ", item.defense, " d'armure !")
-    print("Description = ",item.description)
-    print("Poids = ",item.poids)
 
 ######## Groupe de système de tour  
 def entre_dans_combat(perso, zone): #Doit etre appeller pour faire un combat

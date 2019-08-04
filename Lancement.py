@@ -1,13 +1,6 @@
 #Ici on met les persos + les items pour test les fonctions et les classes
-import os.path
-from random import *
-import pickle
-from SauvegardeEtLoad import *
-from Classes import *
-from FonctionImportante import *
 from Visualisation import *
-import json
-import time
+
 Poudre_magique = Item("Poudre de perlinpainpain",50,3, 10, "C'est une poudre magiiiiique !")
 Ronce_demoniaque = Item("Ronce démoniaque",50,90, 10, "Elle pousse dans le cote cache de la lune.")
 Epee_maudite = Equipement("Epee maudite", 1,90,1, 5, 0, 2, 0, 0,"Ceci est l'épée maudite !","","","main")
