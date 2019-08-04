@@ -4,7 +4,7 @@ from SauvegardeEtLoad import *
 from Classes import *
 from Visualisation import * 
 from FonctionImportante import *
-
+import json
 
 ##################################  GROUPE PERSONNAGES/MONSTRES/BOSS
 class Personnage:
@@ -14,14 +14,13 @@ class Personnage:
     #Tour pour combat
     tour = 0
     #Emplacements des equipements
-    tete = ""
-    dos = ""
-    bras1 = ""
-    bras2 = ""
-    pieds = ""
-    main = ""
-    #Emplacement de transition pour savoir ou doit aller chaque equipement
-    tag = ""
+    empla = {'tete' : 0,
+             'dos' :0,
+            'bras1' : 0,
+            'bras2' : 0,
+            'pieds' : 0,
+            'main' : 0,
+            'tete' : 0}
     ############
     argent = 0
     exp = 0
@@ -43,17 +42,140 @@ class Personnage:
         self.poidsMax = poidsMax
         self.sort_utilisable = sort_utilisable #Voir les sorts dispo nécéssaires pour les trier etc (dans une liste)
         self.inventaire = inventaire
+        
+    #METHODES DE MODIFICATION
+        
+    def ajout_dans_inventaire(self,item,nb_exemplaire):
+        if item.nom in self.inventaire :
+            self.inventaire[item.get_nom()] += nb_exemplaire
+        else :
+            self.inventaire[item.get_nom()] = nb_exemplaire
+    
+    def supprimer_de_inventaire(self,item,nb_exemplaire):
+        if self.inventaire[item.get_nom()] > 0:
+            self.inventaire[item.get_nom()] -= nb_exemplaire
+        if self.inventaire[item.get_nom()] <= 0 :
+            self.inventaire.pop(item.get_nom())
 
+    def utiliser_consommables(self, consommable):
+        if self.pv == self.pvmax :
+            print("Vous avez toute votre vie")
+        else :
+            supprimer_de_inventaire(self,consommable,1)
+            if (self.pv + consommable.valeur) > self.pvmax :
+                self.pv = self.pvmax
+            else :
+                self.pv += consommable.valeur
+                
+    def mettre_equipement(self, item): 
+        if self.empla[item.get_emplacement()] == False and item.nom in self.inventaire:
+            self.empla[item.get_emplacement()] = item.nom
+            up_stats(self, item)
+        else:
+            print('Il y a déjà un objet ici !')
+
+    def enlever_equipement(self, item):
+        if self.empla[item.get_emplacement()]:
+            self.empla[item.get_emplacement()] = 0
+            down_stats(self,item)
+        else:
+            print("Il n'y a pas d'objet ici...")
+
+    def acheter_objet(self, pnj, item): #Pour acheter des objets aux marchands
+        if self.argent >= item.get_cout() and item.get_nom() in pnj.objet:
+            self.ajout_dans_inventaire(item, 1)
+            self.argent -= item.get_cout()
+        else :
+            print("T'es pauvre ou l'objet n'est pas disponible")
+
+    def vendre_objet(self, item): #Pour vendre des objets aux marchands
+        if item.get_nom() in self.inventaire:
+            self.supprimer_de_inventaire(item, 1)
+            perso.argent += item.get_cout() * 0.5
+
+    def donne_exp(self, monstre): #donne de l'exp au perso voir comment on la calcule
+        self.exp += (12 + monstre.get_niveau())
+        if self.exp >= self.expmax:
+            self.niveau += 1
+            self.exp = abs(self.expmax - self.exp)
+            self.expmax *= uniform(1.20, 1.5)
+            ameliore_stats(self)
+
+    def donne_argent(self, monstre): #donne de l'argent au perso voir comment on la calcule
+        self.argent += (10 + monstre.get_niveau())
+
+    def lootRarete(self,monstre):
+        prospectionTotale = self.prospection + randint(0, 101)
+        Lootable = list()
+        listeDeLoot = list()
+        nombreDeLoot = randint(1, 11)
+        for i in monstre.get_loot() :
+            if prospectionTotale >= i.get_rarete():
+                Lootable.append(i)
+        for i in range(nombreDeLoot) :
+            obj_obtenu = choice(Lootable)
+            if Lootable and obj_obtenu not in listeDeLoot:
+                listeDeLoot.append(obj_obtenu)
+            else :
+                break
+        for i in listeDeLoot :
+            self.ajout_dans_inventaire(i,randint(1,3))
+
+    def donne_sort(self, classe, sort):#Permet d'apprendre un sort (doit etre link au systeme de lvl car la le sort ne s'apprend pas tout seul à la montée de niveau requis
+        if sort.get_nom() in classe.get_sort() and self.niveau >= sort.get_niveau_requis() and sort.get_nom() not in self.sort_utilisable:
+            self.sort_utilisable.append(sort.get_nom())
+        else :
+            print("Vous ne pouvez pas apprendre ce sort !")
+    
+    #METHODES D'AFFICHAGE
+    def get_caracteristique(self):
+        print('*******************\n***' + self.nom + '***\n***'\
+              + self.classe + '***\nPV : '\
+              + str(self.pv) + '/' + str(self.pvmax) + '\nForce : '\
+              + str(self.force) + '\nPuissance : '\
+              + str(self.puissance) + '\nVitesse : '\
+              + str(self.vitesse) + '\nCritique : '\
+              + str(self.critique) + '\nPrecision : '\
+              + str(self.precision) + '\nDefense : '\
+              + str(self.defense) + '\nMana : '\
+              + str(self.mana) + '\nProspection : '\
+              + str(self.prospection) + '\nPoids max : '\
+              + str(self.poidsMax) + '\n*******************\n')
+        
+    def niveau_sup(self):
+        print("Il vous faut ", str(self.expmax - self.exp)\
+              , " pour atteindre le prochain niveau !")
+        
+    def get_argent(self):
+        print('Vous avez ' + str(self.argent) + ' PO actuellement')
+        
+    def get_inventaire(self):
+        print(str(self.inventaire))
+        
+    def get_prospection(self): #necessaire pour calculer le drop
+        return self.prospection
+
+
+     
 class Classe:
     def __init__(self, nom, tout_sort):
         self.nom = nom
         self.tout_sort = tout_sort #Tout les sorts de la classe en question (dans une liste)
 
+    def get_sort(self):
+        return self.tout_sort
+
+
+    
 class PNJ:
     def __init__(self, nom, objet):
         self.nom = nom
         self.objet = objet #Objet qu'il vend (dans une liste)
-     
+    def get_objet(self):
+        return self.objet
+
+
+    
 class Monstre:
     def __init__(self, nom, vitesse, pv, pvmax, force, loot, effet, niveau):
         self.nom = nom
@@ -64,13 +186,35 @@ class Monstre:
         self.loot = loot #une liste qui contient LES NOMS des objets lootables par le monstre
         self.effet = effet
         self.niveau = niveau #Le niveau des mobs pourquoi pas faire un randomizateur et si tu tombes contre un mob lvl 3 il a + de degat que un lvl 2 (et donne + d'exp)
+
+    def get_loot(self):
+        return self.loot
+
+    def get_nom(self):
+        return self.nom
+
+    def get_niveau(self):
+        return self.niveau
+
+
+    
 class Boss(Monstre):
-    def __init__(self,defense,armure,sorts,mana):
+    def __init__(self,nom, vitesse, pv, pvmax, force, loot, effet, niveau,defense,armure,sorts,mana):
+        self.nom = nom
+        self.vitesse = vitesse
+        self.pv = pv
+        self.pvmax= pvmax
+        self.force = force
+        self.loot = loot #une liste qui contient LES NOMS des objets lootables par le monstre
+        self.effet = effet
+        self.niveau = niveau
         self.defense = defense #les boss, contrairement aux sous monstres, ont une stat de défense, et peuvent donc être plus ou moins tanky
         self.armure = armure #Les boss peuvent eux aussi avoir de l'armure
         self.sorts = sorts #liste qui contient tous les sorts que possède le monstre
         self.mana = mana #Pour lancer ses sorts il lui faut du mana
     #Note : les monstres élites sont des miniboss, ils auront donc des stats réduites : peu/pas de sorts ou de faibles stats à côté
+
+
 
 ############################    GROUPE EFFET/SORT
 class Sort:
@@ -82,13 +226,23 @@ class Sort:
         self.soin = soin #si le sort heal
         self.effet = effet
         self.niveau_requis = niveau_requis #niveau requis pour apprendre le sort
-        
+
+    def get_nom(self):
+        return self.nom
+
+    def get_niveau_requis(self):
+        return self.niveau_requis
+
+
+    
 class Effet:
     def __init__(self, nom, valeur, tour, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
         self.nom = nom
         self.valeur = valeur
         self.tour = tour #cb de tour il dure
         self.description = description
+
+
 
 
 ###########################     GROUPE ITEM/CONSO/STUFF/ARME
@@ -99,8 +253,35 @@ class Item:
         self.rarete = rarete
         self.poids = poids
         self.description = description
-        
-class Consommable():
+
+    #METHODES D'AFFICHAGE    
+    def rareteToStr(self):
+        if self.rarete >= 90 :
+            print("Rarete : Légendaire !")
+        elif self.rarete >= 70 :
+            print("Rarete : Epique")
+        elif self.rarete >= 50 :
+            print("Rarete : Rare")
+        else :
+            print("Rarete : Commun")
+            
+    def get_emplacement(self):
+        return self.emplacement
+
+    def get_nom(self):
+        return self.nom
+
+    def get_cout(self):
+        return self.cout
+
+    def get_rarete(self):
+        return self.rarete
+    
+    def get_poids(self):
+        return self.poids
+
+    
+class Consommable(Item):
     def __init__(self,nom, cout, rarete, poids, description, effet, valeur): 
         self.nom = nom
         self.cout = cout 
@@ -109,8 +290,10 @@ class Consommable():
         self.description = description
         self.effet = effet
         self.valeur = valeur
-        
-class Equipement():
+
+
+    
+class Equipement(Item):
     def __init__(self, nom, cout, rarete, poids, force, puissance, vitesse, mana, defense, description, effet_sur_joueur, effet_sur_mob, emplacement):
         self.nom = nom
         self.cout = cout 
@@ -125,22 +308,8 @@ class Equipement():
         self.effet_sur_joueur = effet_sur_joueur
         self.effet_sur_mob = effet_sur_mob
         self.emplacement = emplacement #indique l'emplacement de l'item (c'est un str)
-      	
-class Arme():
-    def __init__(self, nom, cout, rarete, poids, description, force, puissance, vitesse, mana, defense, effet_sur_joueur, effet_sur_mob, emplacement):
-        self.nom = nom
-        self.cout = cout 
-        self.rarete = rarete
-        self.poids = poids
-        self.description = description
-        self.puissance = puissance
-        self.vitesse = vitesse
-        self.force = force
-        self.mana = mana
-        self.defense = defense
-        self.effet_sur_joueur = effet_sur_joueur
-        self.effet_sur_mob = effet_sur_mob
-        self.emplacement = emplacement #indique l'emplacement de l'item (c'est un str)
+
+
 
 
 class Zone(): #Systeme de zone avec des monstres specifiques a chaque zone 
@@ -149,3 +318,8 @@ class Zone(): #Systeme de zone avec des monstres specifiques a chaque zone
         self.monstre = monstre #les monstres de la zone (en liste)
         self.description = description
         
+    def get_nom(self):
+        return self.nom
+    
+    def get_description(self):
+        return self.description

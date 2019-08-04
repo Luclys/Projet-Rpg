@@ -8,9 +8,9 @@ from FonctionImportante import *
 from Visualisation import *
 import json
 import time
-Poudre_magique = Item("Poudre de perlinpainpain",50,20, 10, "C'est une poudre magiiiiique !")
+Poudre_magique = Item("Poudre de perlinpainpain",50,3, 10, "C'est une poudre magiiiiique !")
 Ronce_demoniaque = Item("Ronce démoniaque",50,90, 10, "Elle pousse dans le cote cache de la lune.")
-Epee_maudite = Arme("Epee maudite", 1,90,1,"Ceci est l'épée maudite !", 5, 0, 2, 0, 0 ,"","","main")
+Epee_maudite = Equipement("Epee maudite", 1,90,1, 5, 0, 2, 0, 0,"Ceci est l'épée maudite !","","","main")
 Casque_WazukiIV = Equipement("Casque du roi Wazuki IV", 1,1,1, 0, 10, 0, 200, 2,"Vieux casque dégueulasse","","","tete")
 Potion_soin = Consommable("Potion de soin",1,1,1,"Potion qui soigne 2 pv", 2, 12)
 Brulure = Effet("Brûlure", 2 , 2, "Au secours ça brule !")
@@ -28,13 +28,13 @@ Ish = PNJ("Ish", [Epee_maudite.nom, Casque_WazukiIV.nom])
 Plaine = Zone("Plaine", [Gluant, Multi_Gluant], "C'est une plaine")
 
 #Classe disponible (ici juste le string. Nécessite une fonction pour attribuer les sorts et les items de base)
-classeDispo = ['Mage', 'Paladin', 'Pretre', 'Guerrier']
+classeDispo = ['Mage', 'Paladin', 'Guerrier']
 
 
 def menuPrincipale():
     continuer = True
     while continuer:
-        print("1.Nouveau personnage \n2.Retour à l'aventure !\n3.Sauvegarder\n4.Quitter")
+        print("1.Nouveau personnage \n2.Retour à l'aventure !\n3.Virer en donjon !\n4.Sauvegarder\n5.Quitter")
         choix = input('Que voulez-vous faire ? : ')
         if choix == '1':
             nom = input('Entre ton nom : ')
@@ -51,26 +51,20 @@ def menuPrincipale():
             joueur.append(creerPerso(nom, randint(1,5), randint(1,5)\
                                      , randint(1,5), randint(1,5), randint(1,5), classe\
                                      , randint(1,5),randint(1,5),randint(1,5),randint(1,5)\
-                                     ,randint(1,5),randint(1,5), speelFromClasse(classe), dict()))
-            showPerso(joueur[0])
+                                     ,randint(1,5),randint(1,5), eval(classe).get_sort(), dict()))
+            joueur[0].get_caracteristique()
         elif choix == '2':
             loadAll()
         elif choix == '3':
+            loadAll()
+        elif choix == '4':
             sauv = input('Quel personnage sauvegarder ? : ')
             for i in range(len(joueur)):
                 if joueur[i].nom == sauv:
                     savePerso(joueur[i])
-        elif choix == '4':
+        elif choix == '5':
             print('Bye !')
             continuer = False
-
-def speelFromClasse(classe): #Attribut les sorts par rapport à la classe choisie
-    return {
-        'Mage': [Boule_de_feu.nom, Glace.nom],
-        'Paladin': [],
-        'Guerrier':[],
-        'Pretre':[]
-    }.get(classe, [])
         
     
 if __name__ == '__main__':
