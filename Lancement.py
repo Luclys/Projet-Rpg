@@ -58,6 +58,10 @@ def menuPrincipale(perso):
                                      , randint(1,5), randint(1,5), randint(1,5), classe\
                                      , randint(1,5),randint(1,5),randint(1,5),randint(1,5)\
                                      ,randint(1,5),randint(1,5), eval(classe).get_sort(), dict())
+            joueur.append(creerPerso(nom, randint(1,5), randint(1,5)\
+                                     , randint(1,5), randint(1,5), randint(1,5), classe\
+                                     , randint(1,5),randint(1,5),randint(1,5),randint(1,5)\
+                                     ,randint(1,5),randint(1,5), eval(classe).get_sort(), dict()))
 
             print('\nVoila ton aventure peut démarrer jeune héro !\n')
             time.sleep(1.2)
@@ -77,7 +81,7 @@ def menuPrincipale(perso):
             if nom_joueur :
                 choix_perso = input('\n\nFais ton choix : ')
                 while choix_perso not in nom_joueur: 
-                    choix_perso = input("Ce personnage n'existe pas \nSelectionne un des personnages existants ! : \n ")
+                    choix_perso = input("Ce personnage n'existe pas \nSelectionne un des personnages existants ! :\n")
                 index = nom_joueur.index(choix_perso)
                 perso[0] = joueur[index]
                 print('\nPersonnage chargé ! Bon jeu ! :)\n\n')
