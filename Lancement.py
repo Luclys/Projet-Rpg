@@ -9,13 +9,26 @@ Ronce_demoniaque = Item("Ronce démoniaque",50,90, 10, "Elle pousse dans le cote
 Epee_maudite = Equipement("Epee maudite", 1,90,1, 5, 0, 2, 0, 0,"Ceci est l'épée maudite !","","","main")
 Casque_WazukiIV = Equipement("Casque du roi Wazuki IV", 1,1,1, 0, 10, 0, 200, 2,"Vieux casque dégueulasse","","","tete")
 Potion_soin = Consommable("Potion de soin",1,1,1,"Potion qui soigne 2 pv", 2, 12)
-Brulure = Effet("Brûlure", 2 , 2, "Au secours ça brule !")
-Poison = Effet("Poison", 2 , 2, "J'ai mal")
-Purge = Effet("Purge", 2 , 1, "Je suis guérie !")
+Brulure = Effet("Brûlure", "Au secours ça brûle ! Houlàlà")
+Stupeur = Effet("Stupeur", "Oh, bah mince alors, je ne peux plus bouger !"  )
+Poison = Effet("Poison", "J'ai mal, outch")
+Hemorragie= Effet("Hémorragie", "AH PAR L'ATTAQUE DE LA CORNE DE LICORNE, JE SAIGNEEEUUUUH")
+Purge = Effet("Purge", "Je suis guérie. ! Ca va mieux !")
+Change_attaque = Effet("Change attaque", "DE LA PUISSSSSAAAAANNNNNNCCCEEEEEE")
+Change_defense = Effet("Change défense", "Solide comme un rock")
+Void = Effet("","")
 Gluant = Monstre("Gluant", 5, 13, 20, 1, [Poudre_magique, Ronce_demoniaque], Brulure, 1)
 Multi_Gluant = Monstre("Multi Gluant", 5, 13, 20, 1, [Epee_maudite], Poison, 2)
 Boule_de_feu = Sort("Boule de feu", 50, "C'est une boule de feu", 10, 0, Brulure, 1)
 Glace = Sort("Glace", 50, "Non ce n'est pas celle que tu manges l'été", 10, 0, Purge, 2)
+Burst = Sort("Burst", 50, "ça fait mal", 100, -50, Brulure, 5)
+Explosion = Sort("explo", 0, "C'est une explosion chirurgicale", 1000, -99999, Void, 0 )
+Tension = Sort('Tension', 50, "Augmente la puissance", 0, 0, Change_attaque, 2)
+Parade = Sort('Parade', 50, 'Augmente la défense', 0, 0, Change_defense, 2)
+DoubleHeal = Sort('Double Heal',75,"Soigne un allié et un adversaire",-50,50, Void, 8)
+CoupDboule = Sort("CoupD'Boule",75,"Inflige de lourds dégats grâce à votre front sayant", 999, 1, Void, 72)
+DoublePoison = Sort('Double Poison',75,"Empoisonne un allié et un adversaire",0,0, Poison, 8)
+DoublePoison = Sort('Double Poison',75,"Empoisonne un allié et un adversaire",0,0, Poison, 8)
 Mage = Classe("Mage",[Boule_de_feu.nom, Glace.nom])
 Guerrier = Classe("Guerrier",[])
 Paladin = Classe("Paladin",[])
@@ -104,13 +117,13 @@ def hub(perso):
     while continuer:
         print('\n**********************************************************************************************\n'\
             + 'Hey ' + perso.nom + ' !\n'\
-            + "1.Virée en donjon \n2.Sauvegarder !\n3.Retour au menu principal\n"\
+            + "1.Virée en donjon \n2.Sauvegarder !\n3.Ouvrir l'inventaire \n4.Retour au menu principal\n"\
             + '**********************************************************************************************\n')
         choix = input('Que voulez-vous faire ? : ')
         if choix == '2':
             savePerso(perso)
-            
-        elif choix == '3':
+
+        elif choix == '4':
             clean()
             continuer = False
 

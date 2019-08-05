@@ -274,13 +274,18 @@ class Sort:
 
     
 class Effet:    
-    def __init__(self, nom, valeur, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
+    def __init__(self, nom, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
         self.nom = nom
-        self.valeur = valeur
         self.description = description
+        self.valeur = 0
         self.duree = 1
-    def tour(self,duree):
+        
+    def set_tour(self,duree):
         self.duree
+        
+    def set_valeur(self,valeur):
+        self.valeur
+        
     def applique_effet_equip(self,perso, equipement): #Applique l'effet d'un equipement 
         if equipement.get_effet_sur_joueur():
             perso.set_effet(equipement.get_effet_sur_joueur)
