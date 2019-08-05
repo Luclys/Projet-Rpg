@@ -273,13 +273,14 @@ class Sort:
 
 
     
-class Effet:
-    def __init__(self, nom, valeur, tour, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
+class Effet:    
+    def __init__(self, nom, valeur, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
         self.nom = nom
         self.valeur = valeur
-        self.tour = tour #cb de tour il dure
         self.description = description
-
+        self.duree = 1
+    def tour(self,duree):
+        self.duree
     def applique_effet_equip(self,perso, equipement): #Applique l'effet d'un equipement 
         if equipement.get_effet_sur_joueur():
             perso.set_effet(equipement.get_effet_sur_joueur)
