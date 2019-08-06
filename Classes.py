@@ -3,7 +3,7 @@ from random import *
 ##################################  GROUPE PERSONNAGES/MONSTRES/BOSS
 class Personnage:
     #Effet appliqué directement
-    effet = ""
+    effet = ''
     tour_effet = 0
     #Tour pour combat
     tour = 0
@@ -279,11 +279,11 @@ class Sort:
 
     
 class Effet:    
-    def __init__(self, nom, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
+    def __init__(self, nom,valeur,duree, description): #la valeur c'est ce que ça fait: ce que ça modifie comme stat,  ou les dégats que ça inflige
         self.nom = nom
         self.description = description
-        self.valeur = 0
-        self.duree = 1
+        self.valeur = valeur
+        self.duree = duree
         
     def set_tour(self,duree):
         self.duree
