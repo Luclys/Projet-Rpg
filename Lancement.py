@@ -120,7 +120,10 @@ def hub(perso):
             + "1.Virée en donjon \n2.Sauvegarder !\n3.Ouvrir l'inventaire \n4.Retour au menu principal\n"\
             + '**********************************************************************************************\n')
         choix = input('Que voulez-vous faire ? : ')
-        if choix == '2':
+        if choix == '1':
+            donjon(perso)
+            
+        elif choix == '2':
             savePerso(perso)
 
         elif choix == '4':
@@ -131,8 +134,42 @@ def hub(perso):
             print('\n***Commande inconnue :(***\n\n')
 
 
+def donjon(perso):
+    print('Vous entrez dans le donjon !')
+    continuer = True
+    while continuer:
+        monstre_combat = list()
+        nombre_monstre = randint(1,5)
+        mob_dispo = gen_mob(nombre_monstre)
+        nom_multi_mob(nombre_monstre, mob_dispo, monstre_combat)
+        combat(perso,monstre_combat)
 
-    
+def nom_multi_mob(n, mob_dispo, monstre_combat):
+    for i in range(n): 
+        monstre_tempo = choice(mob_dispo)
+        if monstre_tempo not in monstre_combat:
+            acc = 0
+            nom_base_mob = monstre_tempo.nom
+            for i in monstre_combat:
+                if monstre_tempo.nom == i.nom:
+                    acc += 1
+                    monstre_tempo.nom = nom_base_mob + ' ' + str(acc)
+            if acc:
+                monstre_tempo.nom = nom_base_mob + ' ' + str(acc)
+            monstre_combat.append(monstre_tempo)
+
+            
+def gen_mob(nb_mob):
+    nom_mob = ['Gluant', 'Mega Gluant', 'Sanglier', 'Moskito', 'Bouftou']
+    liste_finale = list()
+    for i in range(nb_mob):
+        nom = choice(nom_mob)
+        niveau = randint(1,5)
+        pv = randint(10,20)+niveau
+        liste_finale.append(Monstre(nom, randint(1,10), pv, pv, 1, [Poudre_magique, Ronce_demoniaque], Brulure, niveau))
+    return liste_finale
+
+
 def clean():   
     if platform.system() == 'Windows':
         os.system('cls')

@@ -194,6 +194,11 @@ class Personnage:
     def get_prospection(self): #necessaire pour calculer le drop
         return self.prospection
 
+    def get_tour_effet(self):
+        return self.tour_effet
+
+    def get_effet(self):
+        return self.effet
 
      
 class Classe:
@@ -294,7 +299,7 @@ class Effet:
     def applique_effet_de_mob(self,perso, monstre): #Applique l'effet quand un mob tape sur le perso
         if monstre.effet and perso.get_effet() == "":
             perso.set_effet(monstre.effet.nom)
-            perso.set_tour_effet(self.tour)
+            perso.set_tour_effet(self.duree)
 
     def applique_dommage_effet(self,perso): #Appliqueur de dommage 
         if perso.get_tour_effet() == 0:
