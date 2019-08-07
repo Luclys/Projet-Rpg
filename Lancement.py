@@ -121,11 +121,16 @@ def hub(perso):
             + '**********************************************************************************************\n')
         choix = input('Que voulez-vous faire ? : ')
         if choix == '1':
+            clean()
             donjon(perso)
             
         elif choix == '2':
             savePerso(perso)
 
+        elif choix == '3':
+            clean()
+            perso.get_inventaire()
+            print(perso.empla)
         elif choix == '4':
             clean()
             continuer = False
@@ -160,30 +165,35 @@ def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_co
         if perso.get_effet():
             for i in effetDispo:
                 if perso.get_effet() == i.nom:
-                    print('*** DEGAT INFLIGE***')
+                    print("*** L'effet t'inflige " + str(i.valeur) + ' points de dégat, outch !***')
                     i.applique_dommage_effet(perso)
-                    print('PV apres leffet : ' + str(perso.pv))
-        choix = input("Que voulez-vous faire ? : ")
-        if choix == "Attaque" or choix == "attaque":
+                    print("PV apres l'effet : " + str(perso.pv))
+        choix = input("Que voulez-vous faire ? : \n1.Attaquer\n2.Fuir\n")
+        if choix == '1':
             for i in monstre:
-                print(i.nom + '\n')
+                if i.pv > 0:
+                    print(i.nom + '\n')
             avancer = False
             while avancer == False:
                 choix2 = input("\nQui attaquer ? : ")
                 for i in monstre:
-                    if i.nom == choix2:
+                    if i.nom == choix2 and i.pv > 0 :
                         cible = i
                         avancer = True
             cible.pv -= perso.force
-            print("Monstre : ", cible.pv)
+            print("Tu attaques " + cible.nom + ' !\nIl perd '\
+                  + str(perso.force) + ' !\n' + cible.nom + ' possède ' + str(cible.pv)+ ' PV\n')
             for i in monstre:
                 pv_total_monstre += i.pv
-        cible.effet.applique_effet_de_mob(perso, cible)
+        print('Les monstres attaquent !')
         for i in monstre:
-            perso.pv -= i.force
-        print("Moi : ", perso.pv)
+            if i.pv > 0:
+                print(i.nom + " t'infliges "+ str(i.force) + " !")
+                perso.pv -= i.force
+                print('Il te reste ' + str(perso.pv))
+                cible.effet.applique_effet_de_mob(perso, cible)
     if perso.pv <= 0 :
-        print("Perdu!")
+        print("Tu as été battu !")
         perso.pv = perso.pvmax
         perso.set_effet('')
         perso.tour_effet = 0

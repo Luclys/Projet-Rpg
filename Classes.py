@@ -87,15 +87,18 @@ class Personnage:
 
     def donne_exp(self, monstre): #donne de l'exp au perso voir comment on la calcule
         self.exp += (12 + monstre.get_niveau())
+        print('Tu as gagné ' + str((12 + monstre.get_niveau())) + " d'exp")
         if self.exp >= self.expmax:
             self.niveau += 1
+            print("TU PASSES AU NIVEAU " + str(self.niveau) + " !!!")
             self.exp = abs(self.expmax - self.exp)
             self.expmax *= uniform(1.20, 1.5)
             self._ameliore_stats()
-
+            self.get_caracteristique()
+        self.niveau_sup()
     def donne_argent(self, monstre): #donne de l'argent au perso voir comment on la calcule
         self.argent += (10 + monstre.get_niveau())
-
+        print('Tu as gagné ' + str((10 + monstre.get_niveau())) + " pièces d'or")
     def lootRarete(self,monstre):
         prospectionTotale = self.prospection + randint(0, 101)
         Lootable = list()
@@ -112,6 +115,7 @@ class Personnage:
                 break
         for i in listeDeLoot :
             self.ajout_dans_inventaire(i,randint(1,3))
+            print('Vous avez récupéré ' + i.nom + ' durant le combat !')
 
     def donne_sort(self, classe, sort):#Permet d'apprendre un sort (doit etre link au systeme de lvl car la le sort ne s'apprend pas tout seul à la montée de niveau requis
         if sort.get_nom() in classe.get_sort() and self.niveau >= sort.get_niveau_requis() and sort.get_nom() not in self.sort_utilisable:
@@ -183,7 +187,7 @@ class Personnage:
         
     def niveau_sup(self):
         print("Il vous faut ", str(self.expmax - self.exp)\
-              , " pour atteindre le prochain niveau !")
+              , " points d'expérience pour atteindre le prochain niveau !")
         
     def get_argent(self):
         print('Vous avez ' + str(self.argent) + ' PO actuellement')
@@ -300,6 +304,7 @@ class Effet:
         if monstre.effet and perso.get_effet() == "":
             perso.set_effet(monstre.effet.nom)
             perso.set_tour_effet(self.duree)
+            print("Outch tu possèdes désormais l'effet de " + perso.get_effet() + "...")
 
     def applique_dommage_effet(self,perso): #Appliqueur de dommage 
         if perso.get_tour_effet() == 0:
