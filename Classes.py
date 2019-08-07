@@ -6,7 +6,6 @@ class Personnage:
     effet = ''
     tour_effet = 0
     #Tour pour combat
-    tour = 0
     #Emplacements des equipements
     ############
     argent = 0
@@ -36,6 +35,7 @@ class Personnage:
             'bras2' : 0,
             'pieds' : 0,
             'main' : 0}
+        self.tour = 0
     #METHODES DE MODIFICATION
     
     def ajout_dans_inventaire(self,item,nb_exemplaire):
@@ -170,7 +170,17 @@ class Personnage:
 
     def set_tour_effet(self, tour):
         self.tour_effet = tour
-        
+
+    def fuir(self):
+        tentative = randint(0,1)
+        if tentative == 1:
+            self.set_effet('')
+            self.tour_effet = 0
+            self.tour = 0
+            return True
+        else:
+            print("Tu n'as pas réussi à fuir :/")
+            return False
     #METHODES D'AFFICHAGE
     def get_caracteristique(self):
         print('*******************\n***' + self.nom + '***\n***'\

@@ -195,17 +195,21 @@ def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_co
                   + str(perso.force) + ' !\n' + cible.nom + ' possède ' + str(cible.pv)+ ' PV\n')
             for i in monstre:
                 pv_total_monstre += i.pv
+        if choix == '2':
+            if perso.fuir():
+                return False
         for i in monstre:
             if i.pv > 0:
                 print(i.nom + " t'infliges "+ str(i.force) + " !")
                 perso.pv -= i.force
-                print('Il te reste ' + str(perso.pv))
-                cible.effet.applique_effet_de_mob(perso, cible)
+                print('Il te reste ' + str(perso.pv) + ' pv')
+                i.effet.applique_effet_de_mob(perso, i)
     if perso.pv <= 0 :
         print("Tu as été battu !")
         perso.pv = perso.pvmax
         perso.set_effet('')
         perso.tour_effet = 0
+        perso.tour = 0
         return False
     else :
         print("Bravo, votre ennemi est mort !")
@@ -214,6 +218,7 @@ def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_co
         perso.donne_exp( choice(monstre))
         perso.donne_argent( choice(monstre))
         perso.tour_effet = 0
+        perso.tour = 0
         return True
 
 
