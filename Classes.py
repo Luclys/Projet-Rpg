@@ -8,12 +8,6 @@ class Personnage:
     #Tour pour combat
     tour = 0
     #Emplacements des equipements
-    empla = {'tete' : 0,
-             'dos' :0,
-            'bras1' : 0,
-            'bras2' : 0,
-            'pieds' : 0,
-            'main' : 0}
     ############
     argent = 0
     exp = 0
@@ -36,6 +30,12 @@ class Personnage:
         self.sort_utilisable = sort_utilisable #Voir les sorts dispo nécéssaires pour les trier etc (dans une liste)
         self.inventaire = inventaire
         self.expmax = randint(150, 200)
+        self.empla = {'tete' : 0,
+             'dos' :0,
+            'bras1' : 0,
+            'bras2' : 0,
+            'pieds' : 0,
+            'main' : 0}
     #METHODES DE MODIFICATION
     
     def ajout_dans_inventaire(self,item,nb_exemplaire):

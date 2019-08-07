@@ -17,8 +17,6 @@ def savePerso(perso):         #Permet d'enregistrer un personnage dans un fichie
     i = '0'
     if not os.path.isdir("perso/"):
         os.mkdir('perso')
-    if not os.path.isdir("equipement/"):
-        os.mkdir('equipement')
     while os.path.exists('perso/'+i):
         perso_open = pickle.load(open('perso/'+i, 'rb'))
         if perso_open.nom == perso.nom:
@@ -27,9 +25,6 @@ def savePerso(perso):         #Permet d'enregistrer un personnage dans un fichie
                 os.remove('perso/'+i)
                 pickle.dump(perso, open('perso/'+i, 'wb'))
                 print('\n***' + str(perso.nom) + ' a été sauvegardé !***\n')
-                os.remove('equipement/'+i)
-                pickle.dump(perso.empla,open('equipement/'+i, 'wb'), protocol=pickle.HIGHEST_PROTOCOL)
-                print('\n***' + str(perso.empla) + ' a été sauvegardé !***\n')
                 return 0
             else:
                 return 0
@@ -38,14 +33,9 @@ def savePerso(perso):         #Permet d'enregistrer un personnage dans un fichie
         i = str(i)
     pickle.dump(perso, open('perso/'+i, 'wb'))
     print('\n***' + str(perso.nom) + ' a été sauvegardé !***\n')
-    pickle.dump(perso, open('equipement/'+i, 'wb'), protocol=pickle.HIGHEST_PROTOCOL)
-    print('\n***' + str(perso.empla) + ' a été sauvegardé !***\n')
 
 def loadPerso(nom):
     return pickle.load(open('perso/'+nom, 'rb'))
-
-def loadEquipement(nom):
-    return pickle.load(open('equipement/'+nom, 'rb'))
 
 #Cette fonction est juste un test, mais comme elle marche on la garde.
 def loadAll(): #    Fonction pour charger tout les personnages et les memoriser dans une liste. (typiquement le truc a lancer au demarrage du jeu)
