@@ -17,7 +17,7 @@ class Personnage:
     ############
     argent = 0
     exp = 0
-    expmax = randint(150, 200) #Choisie aleatoirement l'exp pour atteindre le niveau 2 pour le fun x) 
+     #Choisie aleatoirement l'exp pour atteindre le niveau 2 pour le fun x) 
     niveau = 1
     def __init__(self, nom, pv, pvmax, force, puissance, defense, classe, prospection, critique, precision, vitesse, mana, poidsMax, sort_utilisable, inventaire): 
         self.pv = pv
@@ -35,6 +35,7 @@ class Personnage:
         self.poidsMax = poidsMax
         self.sort_utilisable = sort_utilisable #Voir les sorts dispo nécéssaires pour les trier etc (dans une liste)
         self.inventaire = inventaire
+        self.expmax = randint(150, 200)
     #METHODES DE MODIFICATION
     
     def ajout_dans_inventaire(self,item,nb_exemplaire):

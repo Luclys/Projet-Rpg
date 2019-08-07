@@ -140,15 +140,25 @@ def hub(perso):
 
 
 def donjon(perso):
-    print('Vous entrez dans le donjon !')
-    continuer = True
-    while continuer:
+    print('Vous entrez dans le donjon !\n')
+    reussi = True
+    for i in range(5):
+        print('Salle ' + str(i))
         monstre_combat = list()
         nombre_monstre = randint(1,5)
         mob_dispo = gen_mob(nombre_monstre)
         nom_multi_mob(nombre_monstre, mob_dispo, monstre_combat)
-        combat(perso,monstre_combat)
-        continuer = False
+        verif = combat(perso,monstre_combat)
+        if verif == False:
+            print('Bon ba retour au hub :/')
+            reussi = False
+            break
+        else:
+            print('Bien joué !')
+    if reussi:
+        print('Tu arrives finalement dans la salle au trésor !!!!\nTu trouves une épée maudite !')
+        perso.ajout_dans_inventaire(Epee_maudite, 1)
+        
 
 def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_combat
     monstre_nom = list()
@@ -185,7 +195,6 @@ def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_co
                   + str(perso.force) + ' !\n' + cible.nom + ' possède ' + str(cible.pv)+ ' PV\n')
             for i in monstre:
                 pv_total_monstre += i.pv
-        print('Les monstres attaquent !')
         for i in monstre:
             if i.pv > 0:
                 print(i.nom + " t'infliges "+ str(i.force) + " !")
@@ -197,6 +206,7 @@ def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_co
         perso.pv = perso.pvmax
         perso.set_effet('')
         perso.tour_effet = 0
+        return False
     else :
         print("Bravo, votre ennemi est mort !")
         perso.set_effet('')
@@ -204,6 +214,7 @@ def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_co
         perso.donne_exp( choice(monstre))
         perso.donne_argent( choice(monstre))
         perso.tour_effet = 0
+        return True
 
 
 
