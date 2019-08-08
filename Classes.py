@@ -181,7 +181,8 @@ class Personnage:
         else:
             print("Tu n'as pas réussi à fuir :/")
             return False
-    #METHODES D'AFFICHAGE
+        
+#METHODES D'AFFICHAGE
     def get_caracteristique(self):
         print('*******************\n***' + self.nom + '***\n***'\
               + self.classe + '***\nPV : '\

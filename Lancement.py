@@ -38,6 +38,7 @@ Plaine = Zone("Plaine", [Gluant, Multi_Gluant], "C'est une plaine")
 
 #Classe disponible (ici juste le string. Nécessite une fonction pour attribuer les sorts et les items de base)
 classeDispo = ['Mage', 'Paladin', 'Guerrier']
+itemDispo = [Casque_WazukiIV,Epee_maudite,Poudre_magique,Ronce_demoniaque,Potion_soin]
 effetDispo =  [Brulure,Poison,Stupeur,Hemorragie,Purge,Change_attaque,Change_defense,Void]
 def menuPrincipale(perso):
     if os.path.isdir("perso/"):
@@ -117,7 +118,7 @@ def hub(perso):
     while continuer:
         print('\n**********************************************************************************************\n'\
             + 'Hey ' + perso.nom + ' !\n'\
-            + "1.Virée en donjon \n2.Sauvegarder !\n3.Ouvrir l'inventaire \n4.Retour au menu principal\n"\
+            + "1.Virée en donjon \n2.Sauvegarder !\n3.Ouvrir l'inventaire \n4.Afficher ses caractéristiques\n5.Retour au menu principal\n"\
             + '**********************************************************************************************\n')
         choix = input('Que voulez-vous faire ? : ')
         if choix == '1':
@@ -129,15 +130,53 @@ def hub(perso):
 
         elif choix == '3':
             clean()
-            perso.get_inventaire()
-            print(perso.empla)
+            inventaire(perso)
         elif choix == '4':
+            clean()
+            perso.get_caracteristique()
+            perso.niveau_sup()
+            perso.get_argent()
+            
+        elif choix == '5':
             clean()
             continuer = False
 
         else:
             print('\n***Commande inconnue :(***\n\n')
 
+
+
+def inventaire(perso):
+    perso.get_inventaire()
+    print(perso.empla)
+    choix2 = None
+    while choix2 != '1' and choix2 != '2':
+        choix2 = input('Que voulez vous faire ?\n1.Selectionner un objet\n2.Retour au hub\n\n')
+    if choix2 == '1':
+        choix3 = None
+        item_tempo = list()
+        for i in itemDispo:
+            item_tempo.append(i.nom)
+        while choix3 not in item_tempo:
+            perso.get_inventaire()
+            choix3 = input('Quel objet sélectionner ? : ')
+        selection = itemDispo[item_tempo.index(choix3)]
+        choix4 = None
+        while choix4 != '1' and choix4 != '2':
+            if  isinstance(selection, Equipement):
+                choix4 = input('1.Equiper\n2.Annuler\n')
+            elif isinstance(selection, Consommable):
+                choix4 = input('1.Boire\n2.Annuler\n')
+            else:
+                choix4 = input('1.Inspecter\n2.Annuler\n')
+        if choix4 == '1' and  isinstance(selection, Equipement):
+            perso.mettre_equipement(selection)
+            print("Hop c'est équipé !")
+        elif choix4 == '1' and isinstance(selection, Consommable):
+            perso.utiliser_consommables(selection)
+            print("Hop c'est bu ^^")
+        elif choix4 == '1' and not isinstance(selection, Equipement) and not isinstance(selection, Consommable):
+            print(selection.description)
 
 def donjon(perso):
     print('Vous entrez dans le donjon !\n')
@@ -159,7 +198,7 @@ def donjon(perso):
         print('Tu arrives finalement dans la salle au trésor !!!!\nTu trouves une épée maudite !')
         perso.ajout_dans_inventaire(Epee_maudite, 1)
         
-
+        
 def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_combat
     monstre_nom = list()
     for i in monstre:
@@ -178,8 +217,11 @@ def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_co
                     print("*** L'effet t'inflige " + str(i.valeur) + ' points de dégat, outch !***')
                     i.applique_dommage_effet(perso)
                     print("PV apres l'effet : " + str(perso.pv))
-        choix = input("Que voulez-vous faire ? : \n1.Attaquer\n2.Fuir\n")
+        choix = None 
+        while choix != '1' and choix != '2':
+            choix = input("Que voulez-vous faire ? : \n1.Attaquer\n2.Fuir\n")
         if choix == '1':
+            print('test')
             for i in monstre:
                 if i.pv > 0:
                     print(i.nom + '\n')
@@ -220,12 +262,6 @@ def combat(perso, monstre): #la fonction s'execute par le biais de entre_dans_co
         perso.tour_effet = 0
         perso.tour = 0
         return True
-
-
-
-
-
-
 
 
 def nom_multi_mob(n, mob_dispo, monstre_combat):
